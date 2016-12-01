@@ -23,5 +23,5 @@ For example, if your instructions are R8, R4, R4, R8, the first location you vis
 How many blocks away is the first location you visit twice?
 
 ## Solutions
-	* [Part 1](part1.rb)
-	* [Part 2](part2.rb)
+* [Part 1](part1.rb)
+* [Part 2](part2.rb)
