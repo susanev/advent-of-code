@@ -4,6 +4,7 @@ class Part1
 		@pairs = {:north => :north_south, :south => :north_south, :east => :east_west, :west => :east_west}
 		@totals = {:north_south => 0, :east_west => 0}
 		@direction = :north
+		@indicators = {:north_south => false, :east_west => false}
 		processFile(file_name)
 		output
 	end
@@ -12,8 +13,10 @@ class Part1
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
 				data = line.split(", ")
-				data.each do |instr|
-					update(instr)
+				index = 0
+				until (@indicators[:north_south] && @indicators[:east_west]) || index >= data.length
+					update(data[index])
+					index+=1
 				end
 			end
 		end
@@ -26,8 +29,16 @@ class Part1
 		if @direction == :south || @direction == :west
 			steps *= -1
 		end
+		updateIndicators(steps)
 		@totals[@pairs[@direction]]+=steps
+		puts @indicators
 		puts @totals
+	end
+
+	def updateIndicators(steps)
+		if @totals[@pairs[@direction]] < 0 && steps > 0 || @totals[@pairs[@direction]] > 0 && steps < 0
+				@indicators[@pairs[@direction]] = true
+		end
 	end
 
 	def output
