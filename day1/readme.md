@@ -15,6 +15,8 @@ R2, R2, R2 leaves you 2 blocks due South of your starting position, which is 2 b
 R5, L5, R5, R3 leaves you 12 blocks away.
 How many blocks away is Easter Bunny HQ?
 
+[Part 1 Solution](part1.rb)
+
 ### Part 2
 Easter Bunny HQ is actually at the first location you visit twice.
 
@@ -22,6 +24,4 @@ For example, if your instructions are R8, R4, R4, R8, the first location you vis
 
 How many blocks away is the first location you visit twice?
 
-## Solutions
-* [Part 1](part1.rb)
-* [Part 2](part2.rb)
+[Part 2 Solution](part2.rb)
