@@ -26,8 +26,7 @@ class Part1
 		if @direction == :south || @direction == :west
 			steps *= -1
 		end
-		@totals[@pairs[@direction]]+=steps
-		puts @totals
+		@totals[@pairs[@direction]] += steps
 	end
 
 	def output

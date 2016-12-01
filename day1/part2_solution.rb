@@ -1,4 +1,4 @@
-class Part1
+class Part2
 	def initialize(file_name)
 		@directions = [:north, :east, :south, :west]
 		@direction = :north
@@ -16,9 +16,30 @@ class Part1
 				index = 0
 				until @crossed || index >= data.length
 					update(data[index])
-					index+=1
+					index += 1
 				end
 			end
+		end
+	end
+
+	def update(instr)
+		steps = instr[/[0-9]+/].to_i
+		dir = instr[/[L,R]+/] == "R" ? 1 : -1
+		@direction = @directions[(@directions.index(@direction) + dir) % @directions.length]
+		index = 1
+		until @crossed || index > steps
+			case @direction
+			when :north
+				@current[1] += 1
+			when :south
+				@current[1] -= 1
+			when :east
+				@current[0] += 1
+			else #west
+				@current[0] -= 1
+			end
+			index += 1
+			updateSeen
 		end
 	end
 
@@ -32,33 +53,9 @@ class Part1
 		end
 	end
 
-	def update(instr)
-		steps = instr[/[0-9]+/].to_i
-		dir = instr[/[L,R]+/] == "R" ? 1 : -1
-		@direction = @directions[(@directions.index(@direction) + dir) % @directions.length]
-		index = 1
-		while !@crossed && index <= steps
-			if @direction == :north
-				@current[1]+=1
-			elsif @direction == :south
-				@current[1]-=1
-			elsif @direction == :east
-				@current[0]+=1
-			else
-				@current[0]-=1
-			end
-			index+=1
-			updateSeen
-			puts @seen
-		end
-	end
-
 	def output
 		puts "#{@current[0].abs + @current[1].abs} blocks away"
 	end
 end
 
-Part1.new("input.txt")
-
-
-
+Part2.new("input.txt")
