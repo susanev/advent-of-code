@@ -1,10 +1,10 @@
 class Part1
 	def initialize(file_name)
 		@directions = [:north, :east, :south, :west]
-		@pairs = {:north => :north_south, :south => :north_south, :east => :east_west, :west => :east_west}
-		@totals = {:north_south => 0, :east_west => 0}
 		@direction = :north
-		@indicators = {:north_south => false, :east_west => false}
+		@seen = {0 => [0]}
+		@current = [0,0]
+		@croseed = false
 		processFile(file_name)
 		output
 	end
@@ -14,7 +14,7 @@ class Part1
 			f.each_line do |line|
 				data = line.split(", ")
 				index = 0
-				until (@indicators[:north_south] && @indicators[:east_west]) || index >= data.length
+				until @crossed || index >= data.length
 					update(data[index])
 					index+=1
 				end
@@ -22,27 +22,39 @@ class Part1
 		end
 	end
 
+	def updateSeen
+		if @seen[@current[0]] == nil
+			@seen[@current[0]] = [@current[1]]
+		elsif !@seen[@current[0]].include?(@current[1])
+			@seen[@current[0]].push(@current[1])
+		else
+			@crossed = true
+		end
+	end
+
 	def update(instr)
 		steps = instr[/[0-9]+/].to_i
 		dir = instr[/[L,R]+/] == "R" ? 1 : -1
 		@direction = @directions[(@directions.index(@direction) + dir) % @directions.length]
-		if @direction == :south || @direction == :west
-			steps *= -1
-		end
-		updateIndicators(steps)
-		@totals[@pairs[@direction]]+=steps
-		puts @indicators
-		puts @totals
-	end
-
-	def updateIndicators(steps)
-		if @totals[@pairs[@direction]] < 0 && steps > 0 || @totals[@pairs[@direction]] > 0 && steps < 0
-				@indicators[@pairs[@direction]] = true
+		index = 1
+		while !@crossed && index <= steps
+			if @direction == :north
+				@current[1]+=1
+			elsif @direction == :south
+				@current[1]-=1
+			elsif @direction == :east
+				@current[0]+=1
+			else
+				@current[0]-=1
+			end
+			index+=1
+			updateSeen
+			puts @seen
 		end
 	end
 
 	def output
-		puts "#{@totals[:north_south].abs + @totals[:east_west].abs} blocks away"
+		puts "#{@current[0].abs + @current[1].abs} blocks away"
 	end
 end
 
