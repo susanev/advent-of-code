@@ -1,7 +1,8 @@
 class Part1
 	def initialize(file_name)
 		@directions = [:north, :east, :south, :west]
-		@counts = {:north => 0, :east => 0, :south => 0, :west => 0}
+		@pairs = {:north => :north_south, :south => :north_south, :east => :east_west, :west => :east_west}
+		@totals = {:north_south => 0, :east_west => 0}
 		@direction = :north
 		processFile(file_name)
 		output
@@ -22,11 +23,15 @@ class Part1
 		steps = instr[/[0-9]+/].to_i
 		dir = instr[/[L,R]+/] == "R" ? 1 : -1
 		@direction = @directions[(@directions.index(@direction) + dir) % @directions.length]
-		@counts[@direction]+=steps
+		if @direction == :south || @direction == :west
+			steps *= -1
+		end
+		@totals[@pairs[@direction]]+=steps
+		puts @totals
 	end
 
 	def output
-		puts "#{(@counts[:north]  - @counts[:south]).abs + (@counts[:east] - @counts[:west]).abs} blocks away"
+		puts "#{@totals[:north_south].abs + @totals[:east_west].abs} blocks away"
 	end
 end
 
