@@ -21,7 +21,7 @@ class Part1
 
 	def update(instr)
 		steps = instr[/[0-9]+/].to_i
-		dir = instr[/[L,R]+/] == "R" ? 1 : -1
+		dir = instr[/[L,R]/] == "R" ? 1 : -1
 		@direction = @directions[(@directions.index(@direction) + dir) % @directions.length]
 		if @direction == :south || @direction == :west
 			steps *= -1
