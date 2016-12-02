@@ -20,8 +20,7 @@ class Part1
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
-				data = line.chomp.split("")
-				data.each do |instr|
+				line.chomp.split("").each do |instr|
 					process(instr)
 				end
 				@code += @keypad.key(@position).to_s
