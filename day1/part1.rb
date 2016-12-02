@@ -11,8 +11,7 @@ class Part1
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
-				data = line.split(", ")
-				data.each do |instr|
+				line.split(", ").each do |instr|
 					update(instr)
 				end
 			end
