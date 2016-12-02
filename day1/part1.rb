@@ -1,8 +1,8 @@
 class Part1
 	def initialize(file_name)
 		@directions = [:north, :east, :south, :west]
-		@pairs = {:north => :north_south, :south => :north_south, :east => :east_west, :west => :east_west}
-		@totals = {:north_south => 0, :east_west => 0}
+		@pairs = {north: :north_south, south: :north_south, east: :east_west, west: :east_west}
+		@totals = {north_south: 0, east_west: 0}
 		@direction = :north
 		processFile(file_name)
 		output

@@ -44,7 +44,7 @@ class Part2
 	end
 
 	def updateSeen
-		if @seen[@current[0]] == nil
+		if @seen[@current[0]].nil?
 			@seen[@current[0]] = [@current[1]]
 		elsif !@seen[@current[0]].include?(@current[1])
 			@seen[@current[0]].push(@current[1])
