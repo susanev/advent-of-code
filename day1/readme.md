@@ -1,8 +1,6 @@
 # Advent of Code
 ## Day 1
 
-## Problem Statement
-
 ### Part 1
 The Document indicates that you should start at the given coordinates (where you just landed) and face North. Then, follow the provided sequence: either turn left (L) or right (R) 90 degrees, then walk forward the given number of blocks, ending at a new intersection.
 
