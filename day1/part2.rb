@@ -3,7 +3,7 @@ class Part2
 		@directions = [:north, :east, :south, :west]
 		@direction = :north
 		@seen = {0 => [0]}
-		@current = [0,0]
+		@current = [0, 0]
 		@croseed = false
 		processFile(file_name)
 		output
