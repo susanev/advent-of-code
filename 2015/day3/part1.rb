@@ -26,6 +26,7 @@ class Part1
 			else # '<'
 				@location[0] -= 1
 			end
+			
 			arr = @houses[@location[0]]
 			if arr.nil?
 				@houses[@location[0]] = [@location[1]]
