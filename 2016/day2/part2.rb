@@ -35,19 +35,19 @@ class Part2
 	def process(instr)
 		case instr
 		when "U"
-			if !@keypad.key([@position[0], @position[1] + 1]).nil?
+			if @keypad.value?([@position[0], @position[1] + 1])
 				@position[1] = @position[1] + 1
 			end
 		when "R"
-			if !@keypad.key([@position[0] + 1, @position[1]]).nil?
+			if @keypad.value?([@position[0] + 1, @position[1]])
 				@position[0] = @position[0] + 1
 			end
 		when "D"
-			if !@keypad.key([@position[0], @position[1] - 1]).nil?
+			if @keypad.value?([@position[0], @position[1] - 1])
 				@position[1] = @position[1] - 1
 			end
 		when "L"
-			if !@keypad.key([@position[0] - 1, @position[1]]).nil?
+			if @keypad.value?([@position[0] - 1, @position[1]])
 				@position[0] = @position[0] - 1
 			end
 		end

@@ -26,12 +26,11 @@ class Part1
 			else # '<'
 				@location[0] -= 1
 			end
-			
-			arr = @houses[@location[0]]
-			if arr.nil?
+
+			if !@houses.key?(@location[0])
 				@houses[@location[0]] = [@location[1]]
-			elsif !arr.include?(@location[1])
-				arr.push(@location[1])
+			elsif !@houses[@location[0]].include?(@location[1])
+				@houses[@location[0]].push(@location[1])
 			end
 		end
 	end
