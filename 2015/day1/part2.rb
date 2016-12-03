@@ -1,4 +1,4 @@
-class Part1
+class Part2
 	def initialize(file_name)
 		@position = 0
 		processFile(file_name)
@@ -23,4 +23,4 @@ class Part1
 	end
 end
 
-Part1.new("input.txt")
+Part2.new("input.txt")
