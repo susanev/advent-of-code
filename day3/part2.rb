@@ -11,16 +11,12 @@ class Part2
 			f.each_line do |line|
 				@lines.push(line.split(" ").map(& :to_i))
 				if @lines.length == 3
-					processTriangle
+					3.times do |i|
+						validTriangle(@lines[0][i], @lines[1][i], @lines[2][i])
+					end
 					@lines = []
 				end
 			end
-		end
-	end
-
-	def processTriangle
-		3.times do |i|
-			validTriangle(@lines[0][i], @lines[1][i], @lines[2][i])
 		end
 	end
 
