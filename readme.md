@@ -3,3 +3,4 @@ _This repository holds my solutions (written in Ruby) for the [2016 Advent of Co
 
 * [Day 1](day1)
 * [Day 2](day2)
+* [Day 3](day3)
