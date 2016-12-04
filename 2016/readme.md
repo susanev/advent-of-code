@@ -1,6 +1,8 @@
 # Advent of Code 2016
 
-* [Day 1](day1)
-* [Day 2](day2)
-* [Day 3](day3)
-* [Day 4](day4)
+| Solutions | | | | |
+| :--- | :--- | :--- | :--- | :--- |
+| [Day 1](2016/day1) | | | | |
+| [Day 2](2016/day2) | | | | |
+| [Day 3](2016/day3) | | | | |
+| [Day 4](2016/day4) | | | | |

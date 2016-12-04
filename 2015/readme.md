@@ -1,6 +1,8 @@
 # Advent of Code 2015
 
-* [Day 1](day1)
-* [Day 2](day2)
-* [Day 3](day3)
-* [Day 4](day4)
+| Solutions | | | | |
+| :--- | :--- | :--- | :--- | :--- |
+| [Day 1](2015/day1) | | | | |
+| [Day 2](2015/day2) | | | | |
+| [Day 3](2015/day3) | | | | |
+| [Day 4](2015/day4) | | | | |
