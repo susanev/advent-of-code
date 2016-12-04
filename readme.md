@@ -14,3 +14,4 @@ _This repository holds my solutions (written in Ruby) for [Advent of Code](http:
 | [Day 2](2015/day2) | | | | |
 | [Day 3](2015/day3) | | | | |
 | [Day 4](2015/day4) | | | | |
+| [Day 5](2015/day5) | | | | |
