@@ -8,8 +8,9 @@ class Part1
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
-				sides = line.chomp.split(" ").map(& :to_i)
-				validTriangle(sides[0], sides[1], sides[2])
+				# sides = line.chomp.split(" ").map(& :to_i)
+				# validTriangle(sides[0], sides[1], sides[2])
+				validTriangle2(line.chomp.split(" ").map(& :to_i))
 			end
 		end
 	end
@@ -17,7 +18,14 @@ class Part1
 	def validTriangle(side1, side2, side3)
 		if side1 + side2 > side3 && side1 + side3 > side2 && 
 				side2 + side3 > side1
-			@count+=1
+			@count += 1
+		end
+	end
+
+	def validTriangle2(sides)
+		max = sides.max
+		if sides.reduce(:+) - max > max
+			@count += 1
 		end
 	end
 

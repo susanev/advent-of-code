@@ -12,7 +12,8 @@ class Part2
 				@lines.push(line.split(" ").map(& :to_i))
 				if @lines.length == 3
 					3.times do |i|
-						validTriangle(@lines[0][i], @lines[1][i], @lines[2][i])
+						#validTriangle([@lines[0][i], @lines[1][i], @lines[2][i]])
+						validTriangle2([@lines[0][i], @lines[1][i], @lines[2][i]])
 					end
 					@lines = []
 				end
@@ -20,9 +21,16 @@ class Part2
 		end
 	end
 
-	def validTriangle(num1, num2, num3)
-		if num1 + num2 > num3 && num1 + num3 > num2 && num2 + num3 > num1
+	def validTriangle(side1, side2, side3)
+		if side1 + side2 > side3 && side1 + side3 > side2 && side2 + side3 > side1
 			@count+=1
+		end
+	end
+
+	def validTriangle2(sides)
+		max = sides.max
+		if sides.reduce(:+) - max > max
+			@count += 1
 		end
 	end
 
