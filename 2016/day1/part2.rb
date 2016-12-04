@@ -1,6 +1,7 @@
 class Part2
+	CONST_DIRECTIONS = [:north, :east, :south, :west]
+	
 	def initialize(file_name)
-		@directions = [:north, :east, :south, :west]
 		@direction = :north
 		@seen = {0 => [0]}
 		@current = [0, 0]
@@ -25,7 +26,7 @@ class Part2
 	def update(instr)
 		steps = instr[/[0-9]+/].to_i
 		dir = instr[/[L,R]/] == "R" ? 1 : -1
-		@direction = @directions[(@directions.index(@direction) + dir) % @directions.length]
+		@direction = CONST_DIRECTIONS[(CONST_DIRECTIONS.index(@direction) + dir) % CONST_DIRECTIONS.length]
 		index = 1
 		until @crossed || index > steps
 			case @direction

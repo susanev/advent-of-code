@@ -1,6 +1,7 @@
 class Part1
+	CONST_DIRECTIONS = [:north, :east, :south, :west]
+
 	def initialize(file_name)
-		@directions = [:north, :east, :south, :west]
 		@pairs = {north: :north_south, south: :north_south, east: :east_west, west: :east_west}
 		@totals = {north_south: 0, east_west: 0}
 		@direction = :north
@@ -21,7 +22,7 @@ class Part1
 	def update(instr)
 		steps = instr[/[0-9]+/].to_i
 		dir = instr[/[L,R]/] == "R" ? 1 : -1
-		@direction = @directions[(@directions.index(@direction) + dir) % @directions.length]
+		@direction = CONST_DIRECTIONS[(CONST_DIRECTIONS.index(@direction) + dir) % CONST_DIRECTIONS.length]
 		if @direction == :south || @direction == :west
 			steps *= -1
 		end

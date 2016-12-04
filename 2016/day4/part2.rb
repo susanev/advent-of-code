@@ -1,6 +1,7 @@
 class Part2
+	CONST_LETTERS = "abcdefghijklmnopqrstuvwxyz".split("")
+
 	def initialize(file_name)
-		@letters = "abcdefghijklmnopqrstuvwxyz".split("")
 		@sector_id = -1
 		processFile(file_name)
 		output
@@ -16,7 +17,7 @@ class Part2
 					if letter == "-"
 						room_name[index] = " "
 					else
-						room_name[index] = @letters[(@letters.index(letter) + sector_id) % @letters.length]
+						room_name[index] = CONST_LETTERS[(CONST_LETTERS.index(letter) + sector_id) % CONST_LETTERS.length]
 					end
 				end
 				if room_name.join.include? "northpole"

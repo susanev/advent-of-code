@@ -1,16 +1,17 @@
 class Part1
+	CONST_KEYPAD = {
+		1 => [-1, 1], 
+		2 => [0, 1], 
+		3 => [1, 1], 
+		4 => [-1, 0], 
+		5 => [0, 0], 
+		6 => [1, 0], 
+		7 => [-1, -1], 
+		8 => [0, -1], 
+		9 => [1, -1]
+	}
+
 	def initialize(file_name)
-		@keypad = {
-			1 => [-1, 1], 
-			2 => [0, 1], 
-			3 => [1, 1], 
-			4 => [-1, 0], 
-			5 => [0, 0], 
-			6 => [1, 0], 
-			7 => [-1, -1], 
-			8 => [0, -1], 
-			9 => [1, -1]
-		}
 		@position = [0, 0]
 		@code = ""
 		processFile(file_name)
@@ -23,7 +24,7 @@ class Part1
 				line.chomp.split("").each do |instr|
 					process(instr)
 				end
-				@code += @keypad.key(@position).to_s
+				@code += CONST_KEYPAD.key(@position).to_s
 			end
 		end
 	end

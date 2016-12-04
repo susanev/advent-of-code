@@ -1,8 +1,9 @@
 class Part1
+	CONST_VOWELS = "aeiou"
+	CONST_NOT_NICE = ["ab", "cd", "pq", "xy"]
+	
 	def initialize(file_name)
 		@nice_count = 0
-		@vowels = "aeiou"
-		@not_nice = ["ab", "cd", "pq", "xy"]
 		processFile(file_name)
 		output
 	end
@@ -18,7 +19,7 @@ class Part1
 	end
 
 	def isNice(line)
-		@not_nice.each do |str|
+		CONST_NOT_NICE.each do |str|
 			if line.include? str
 				return false
 			end
@@ -29,7 +30,7 @@ class Part1
 	def has3Vowels(line)
 		vowel_count = 0
 		line.split("").each do |letter|
-			if @vowels.include? letter
+			if CONST_VOWELS.include? letter
 				vowel_count += 1
 			end
 		end

@@ -1,6 +1,5 @@
 class Part1
 	def initialize(file_name)
-		@letters = "abcdefghijklmnopqrstuvwxyz".split("")
 		@sum = 0
 		processFile(file_name)
 		output

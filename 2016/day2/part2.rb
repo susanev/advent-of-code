@@ -1,20 +1,21 @@
 class Part2
+	CONST_KEYPAD = {
+		1 => [0, 2], 
+		2 => [-1, 1], 
+		3 => [0, 1], 
+		4 => [1, 1], 
+		5 => [-2, 0], 
+		6 => [-1, 0], 
+		7 => [0, 0], 
+		8 => [1, 0], 
+		9 => [2, 0], 
+		:A => [-1, -1], 
+		:B => [0, -1], 
+		:C => [1, -1], 
+		:D => [0, -2]
+	}
+
 	def initialize(file_name)
-		@keypad = {
-			1 => [0, 2], 
-			2 => [-1, 1], 
-			3 => [0, 1], 
-			4 => [1, 1], 
-			5 => [-2, 0], 
-			6 => [-1, 0], 
-			7 => [0, 0], 
-			8 => [1, 0], 
-			9 => [2, 0], 
-			:A => [-1, -1], 
-			:B => [0, -1], 
-			:C => [1, -1], 
-			:D => [0, -2]
-		}
 		@position = [-2, 0]
 		@code = ""
 		processFile(file_name)
@@ -27,7 +28,7 @@ class Part2
 				line.chomp.split("").each do |instr|
 					process(instr)
 				end
-				@code += @keypad.key(@position).to_s
+				@code += CONST_KEYPAD.key(@position).to_s
 			end
 		end
 	end
@@ -35,19 +36,19 @@ class Part2
 	def process(instr)
 		case instr
 		when "U"
-			if @keypad.value?([@position[0], @position[1] + 1])
+			if CONST_KEYPAD.value?([@position[0], @position[1] + 1])
 				@position[1] = @position[1] + 1
 			end
 		when "R"
-			if @keypad.value?([@position[0] + 1, @position[1]])
+			if CONST_KEYPAD.value?([@position[0] + 1, @position[1]])
 				@position[0] = @position[0] + 1
 			end
 		when "D"
-			if @keypad.value?([@position[0], @position[1] - 1])
+			if CONST_KEYPAD.value?([@position[0], @position[1] - 1])
 				@position[1] = @position[1] - 1
 			end
 		when "L"
-			if @keypad.value?([@position[0] - 1, @position[1]])
+			if CONST_KEYPAD.value?([@position[0] - 1, @position[1]])
 				@position[0] = @position[0] - 1
 			end
 		end
