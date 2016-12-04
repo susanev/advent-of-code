@@ -18,19 +18,13 @@ class Part1
 	end
 
 	def setFrequency(room_name)
-		frequency = {}
-		# needed to ensure alphabetical order of code
-		# forces all letters into hash (in order)
-		@letters.each do |letter|
-			frequency[letter.to_sym] = 0
-		end
-
+		frequency = Hash.new(0)
 		room_name.split("").each do |letter|
 			if letter != "-"
 				frequency[letter.to_sym] += 1
 			end
 		end
-		return frequency
+		return frequency.sort.to_h
 	end
 
 	def createCode(frequency)
