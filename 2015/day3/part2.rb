@@ -1,4 +1,4 @@
-class Part1
+class Part2
 	def initialize(file_name)
 		@houses = { 0 => [0]}
 		@santa_location = [0, 0]
@@ -46,4 +46,4 @@ class Part1
 	end
 end
 
-Part1.new("input.txt")
+Part2.new("input.txt")
