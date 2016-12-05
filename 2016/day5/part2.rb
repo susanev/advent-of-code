@@ -1,6 +1,7 @@
 class Part2
 	require 'digest/md5'
 
+	CONST_ZEROS = "00000"
 	CONST_VALID = "01234567"
 
 	def initialize(file_name)
@@ -14,16 +15,12 @@ class Part2
 			f.each_line do |line|
 				num = 0
 				while @password.include? nil do 
-					until Digest::MD5.hexdigest(line + num.to_s)[0..4] == "00000"
+					until (md5 = Digest::MD5.hexdigest(line + num.to_s))[0..4] == CONST_ZEROS && 
+							CONST_VALID.include?(i = md5[5]) && 
+							@password[i = i.to_i].nil?
 						num += 1
 					end
-					hash_index = Digest::MD5.hexdigest(line + num.to_s)[5]
-					if CONST_VALID.include? hash_index
-						hash_index = hash_index.to_i
-						if @password[hash_index].nil?
-							@password[hash_index] = Digest::MD5.hexdigest(line + num.to_s)[6]
-						end
-					end
+					@password[i] = md5[6]
 					num += 1
 				end
 			end
