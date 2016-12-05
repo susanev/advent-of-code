@@ -1,6 +1,8 @@
 class Part1
-	def initialize(file_name)
+	require 'digest/md5'
 
+	def initialize(file_name)
+		@password = ""
 		processFile(file_name)
 		output
 	end
@@ -8,16 +10,20 @@ class Part1
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
-				frequency = setFrequency(line[/[a-z]*(-[a-z]+)*/])		
-				if createCode(frequency) == line[/(?<=\[)[a-z]*/]
-					@sum += line[/\d+/].to_i
+				num = 0
+				8.times do 
+					until Digest::MD5.hexdigest(line + num.to_s)[0..4] == "00000"
+						num += 1
+					end
+					@password += Digest::MD5.hexdigest(line + num.to_s)[5].to_s
+					num += 1
 				end
 			end
 		end
 	end
 
 	def output
-		puts "the sum of the sector IDs of real rooms is #{@sum}"
+		puts "the password is #{@password}"
 	end
 end
 
