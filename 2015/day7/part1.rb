@@ -30,7 +30,11 @@ class Part1
 	end
 
 	def convert(str)
-		Integer(str) if Integer(str) rescue str.to_sym
+		if is_number?(str)
+			return Integer(str)
+		else
+			return str.to_sym
+		end
 	end
 
 	def convert_line(line)
