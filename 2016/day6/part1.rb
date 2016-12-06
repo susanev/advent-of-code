@@ -1,10 +1,16 @@
 class Part1
-	require 'digest/md5'
-
-	CONST_ZEROS = "00000"
+	CONST_LENGTH = 8
 
 	def initialize(file_name)
-		@password = ""
+		@answer = ""
+		@str = "abcdefghijklmnopqrstuvwxyz".split("")
+		@common = []
+		CONST_LENGTH.times do |i|
+			@common[i] = {}
+			@str.each do |s|
+				@common[i][s] = 0
+			end
+		end
 		processFile(file_name)
 		output
 	end
@@ -12,20 +18,19 @@ class Part1
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
-				num = 0
-				until @password.length == 8 do 
-					until (md5 = Digest::MD5.hexdigest(line + num.to_s))[0..4] == CONST_ZEROS
-						num += 1
-					end
-					@password += md5[5].to_s
-					num += 1
+				line = line.chomp
+				line.split("").each_with_index do |s, i|
+					@common[i][s] += 1
 				end
-			end
+			end 
 		end
 	end
 
 	def output
-		puts "the password is #{@password}"
+		@common.each do |h|
+			@answer += h.max_by{ |k,v| v }[0]
+		end
+		puts "the original message is #{@answer}"
 	end
 end
 
