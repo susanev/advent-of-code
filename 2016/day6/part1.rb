@@ -3,13 +3,9 @@ class Part1
 
 	def initialize(file_name)
 		@answer = ""
-		@str = "abcdefghijklmnopqrstuvwxyz".split("")
-		@common = []
+		@common = Array.new(CONST_LENGTH)
 		CONST_LENGTH.times do |i|
-			@common[i] = {}
-			@str.each do |s|
-				@common[i][s] = 0
-			end
+			@common[i] = Hash.new 0
 		end
 		processFile(file_name)
 		output
