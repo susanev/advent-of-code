@@ -7,12 +7,10 @@ class Part2
 		@all_signals = false
 		process_file(file_name)
 		@cmds[:b] = [3176]
-
-		until @all_signals do
+		until @cmds[:a].length == 1 && is_number?(@cmds[:a][0]) do
 			process_direct_signals
 			process_cmds
 		end
-
 		output
 	end
 
@@ -56,7 +54,6 @@ class Part2
 	end
 
 	def process_cmds
-		count = 0
 		@cmds.each do |k,v|
 			if v.include?(:NOT) && is_number?(v[1])
 				@cmds[k] = [65525 - v[1]]
@@ -68,13 +65,7 @@ class Part2
 				@cmds[k] = [v[0] << v[2]]
 			elsif v.include?(:RSHIFT) && is_number?(v[0])
 				@cmds[k] = [v[0] >> v[2]]
-			else
-				count += 1
 			end
-		end
-
-		if count == @cmds.length
-			@all_signals = true
 		end
 	end
 
