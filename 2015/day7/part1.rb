@@ -16,11 +16,7 @@ class Part1
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
 				line = line.chomp.split(" ")
-				if line.length == 3
-					@cmds[convert(line.last)] = convert_line(line[0, line.length - 2])
-				else
-					@cmds[convert(line.last)] = convert_line(line[0, line.length - 2])
-				end
+				@cmds[convert(line.last)] = convert_line(line[0, line.length - 2])
 			end
 		end
 	end
