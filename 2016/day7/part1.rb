@@ -1,0 +1,25 @@
+class Part1
+	CONST_LENGTH = 8
+
+	def initialize(file_name)
+
+		processFile(file_name)
+		output
+	end
+
+	def processFile(file_name)
+		File.open(file_name, "r") do |f|
+			f.each_line do |line|
+				line = line.chomp
+
+				end
+			end 
+		end
+	end
+
+	def output
+		puts "the original message is #{@answer}"
+	end
+end
+
+Part1.new("input.txt")
