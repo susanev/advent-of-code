@@ -26,7 +26,8 @@ class Part1
 	def abba(str)
 		index = 0
 		(str.length - 3).times do
-			if (str[index] == str[index+3] && str[index+1] == str[index+2]) && 
+			if (str[index] == str[index+3] && 
+						str[index+1] == str[index+2]) && 
 						str[index] != str[index+2]
 				return true
 			end
