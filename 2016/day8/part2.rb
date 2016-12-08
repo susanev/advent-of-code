@@ -1,4 +1,4 @@
-class Part1
+class Part2
 	CONST_SCREEN_WIDTH = 50
 	CONST_SCREEN_HEIGHT = 6
 
@@ -67,4 +67,4 @@ class Part1
 	end
 end
 
-Part1.new("input.txt")
+Part2.new("input.txt")
