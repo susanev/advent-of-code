@@ -8,7 +8,7 @@ The magnetic strip on the card you swiped encodes a series of instructions for t
 * `rotate column x=A by B` shifts all of the pixels in column A (0 is the left column) down by B pixels. Pixels that would fall off the bottom appear at the top of the column.
 
 For example, here is a simple sequence on a smaller screen:
-* rect 3x2 creates a small rectangle in the top-left corner:
+* `rect 3x2` creates a small rectangle in the top-left corner:
 
 	```
 	###....
@@ -16,7 +16,7 @@ For example, here is a simple sequence on a smaller screen:
 	.......
 	```
 
-* rotate column x=1 by 1 rotates the second column down by one pixel:
+* `rotate column x=1 by 1` rotates the second column down by one pixel:
 
 	```
 	#.#....
@@ -24,7 +24,7 @@ For example, here is a simple sequence on a smaller screen:
 	.#.....
 	```
 
-* rotate row y=0 by 4 rotates the top row right by four pixels:
+* `rotate row y=0 by 4` rotates the top row right by four pixels:
 
 	```
 	....#.#
@@ -32,7 +32,7 @@ For example, here is a simple sequence on a smaller screen:
 	.#.....
 	```
 
-* rotate column x=1 by 1 again rotates the second column down by one pixel, causing the bottom pixel to wrap back to the top:
+* `rotate column x=1 by 1` again rotates the second column down by one pixel, causing the bottom pixel to wrap back to the top:
 
 	```
 	.#..#.#
