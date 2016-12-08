@@ -1,52 +1,50 @@
 class Part1
-	CONST_GRID_SIZE = 1000
+	CONST_SCREEN_WIDTH = 50
+	CONST_SCREEN_HEIGHT = 6
 
 	def initialize(file_name)
 		@screen = []
-		6.times do
-			@screen.push(Array.new(50, false))
+		CONST_SCREEN_HEIGHT.times do
+			@screen.push(Array.new(CONST_SCREEN_WIDTH, false))
 		end
-		processFile(file_name)
+		process_file(file_name)
 		output
 	end
 
-	def processFile(file_name)
+	def process_file(file_name)
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
 				if line.include? "rect"
-					x = line[/(?<=rect )\d+/].to_i
-					y = line[/(?<=x)\d+/].to_i
-					updateLights(["rect", x, y])
-				elsif line.include? "row"
-					x = line[/(?<=\=)\d+/].to_i
-					y = line[/(?<=by )\d+/].to_i
-					updateLights(["row", x, y])
+					update_lights(:rect, line[/(?<=rect )\d+/].to_i, line[/(?<=x)\d+/].to_i)
+				end
+				pos = line[/(?<=\=)\d+/].to_i
+				amt = line[/(?<=by )\d+/].to_i
+				if line.include? "row"
+					update_lights(:row, pos, amt)
 				else #col
-					x = line[/(?<=\=)\d+/].to_i
-					y = line[/(?<=by )\d+/].to_i
-					updateLights(["col", x, y])
+					update_lights(:col, pos, amt)
 				end
 			end
 		end
 	end
 
-	def updateLights(op)
-		if op[0] == "rect"
-			(0...op[2]).each do |row_index|
-				(0...op[1]).each do |col_index|	 
-					@screen[row_index][col_index] = true
+	def update_lights(type, pos, amt)
+		if type == :rect
+			(0...amt).each do |row|
+				(0...pos).each do |col|	 
+					@screen[row][col] = true
 				end
 			end
-		elsif  op[0] == "row"
-			@screen[op[1]] = rotateArray(@screen[op[1]], op[2])
-		elsif op[0] == "col"
+		elsif type == :row
+			@screen[pos] = rotateArray(@screen[pos], amt)
+		elsif type == :col
 			arr = []
 			@screen.each do |row|
-				arr.push(row[op[1]])
+				arr.push(row[pos])
 			end
-			new_arr = rotateArray(arr, op[2])
+			new_arr = rotateArray(arr, amt)
 			@screen.each_with_index do |row, index|
-				row[op[1]] = new_arr[index]
+				row[pos] = new_arr[index]
 			end
 		end
 	end
@@ -54,7 +52,7 @@ class Part1
 	def rotateArray(arr, n)
 		new_arr = Array.new(arr.length)
 		arr.length.times do |i|
-			new_arr[(n + i)%arr.length] = arr[i]
+			new_arr[(n + i) % arr.length] = arr[i]
 		end
 		return new_arr
 	end
