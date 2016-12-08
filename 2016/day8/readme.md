@@ -39,6 +39,7 @@ For example, here is a simple sequence on a smaller screen:
 	#.#....
 	.#.....
 	```
+
 As you can see, this display technology is extremely powerful, and will soon dominate the tiny-code-displaying-screen market. That's what the advertisement on the back of the display tries to convince you, anyway.
 
 There seems to be an intermediate check of the voltage used by the display: after you swipe your card, if the screen did work, how many pixels should be lit?
