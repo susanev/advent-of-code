@@ -49,7 +49,7 @@ class Part1
 		end
 	end
 
-	def rotateArray(arr, n)
+	def rotate_array(arr, n)
 		new_arr = Array.new(arr.length)
 		arr.length.times do |i|
 			new_arr[(n + i) % arr.length] = arr[i]
