@@ -1,6 +1,4 @@
 class Part1
-	CONST_LENGTH = 8
-
 	def initialize(file_name)
 		@count = 0
 		processFile(file_name)
