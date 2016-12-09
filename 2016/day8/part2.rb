@@ -43,8 +43,8 @@ class Part2
 	# updates @screen with an area of
 	# width x height 
 	def turn_on_rect(width, height)
-		(0...width).each do |row|
-			(0...height).each do |col|	 
+		(0...height).each do |row|
+			(0...width).each do |col|	
 				@screen[row][col] = true
 			end
 		end
