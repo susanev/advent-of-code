@@ -45,7 +45,7 @@ class Part2
 				if !to_process.include? "("
 					new_len += repeat * len
 				else
-					new_len += repeat * build_input(to_process)
+					new_len += repeat * count(to_process)
 				end
 			else
 				new_len += 1
