@@ -52,11 +52,13 @@ class Part1
 						@bot = bot
 					end
 
-					if !@instructions[bot][:low][:bot].nil?
-						@bots[@instructions[bot][:low][:bot]].push(bot_values.min)
+					instr_low = @instructions[bot][:low][:bot]
+					if !instr_low.nil?
+						@bots[instr_low].push(bot_values.min)
 					end
-					if !@instructions[bot][:high][:bot].nil?
-						@bots[@instructions[bot][:high][:bot]].push(bot_values.max)
+					instr_high = @instructions[bot][:high][:bot]
+					if !instr_high.nil?
+						@bots[instr_high].push(bot_values.max)
 					end
 					# clears the bots values and the processed instruction
 					@bots[bot] = []
