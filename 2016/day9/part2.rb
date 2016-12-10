@@ -1,7 +1,10 @@
 # susan evans
 # last edited 12/09/2016
 # advent of code 2016, day 9, part 2
-# needs to be cleaned
+# decompresses a file that was compressed
+# using markers of the form (numxnum)
+# processes all markers, including markers
+# inside of marked sections
 
 class Part2
 	def initialize(file_name)
@@ -20,39 +23,34 @@ class Part2
 
 	# recursively counts the length
 	def count(line)
-		index = 0
-		new_len = 0
-		while (index < line.length)
-			if line[index] == "("
-				marker = line[index]
-				index += 1
-				while line[index] != ")"
-					marker << line[index]
-					index += 1
-				end
-				marker << line[index]
+		pos = 0
+		sub_len = 0
+		while (pos < line.length)
+			# if marker, decompress and count length
+			# else add 1 to length, for normal character
+			if line[pos] == "("
+				# substring containing only the marker
+				marker = line[pos, line[pos, line.length - pos].index(")") + 1]
+				pos += marker.length
 				len = marker[/(?<=\()\d+/].to_i
 				repeat = marker[/\d+\)$/].to_i
-				index += 1
-				to_process = ""
-				len.times do 
-					to_process << line[index]
-					index += 1
-				end
+				to_process = line[pos, len]
+				pos += len
 				# if no more markers, then add to length
 				# otherwise recursively call this method until
 				# no more markers
 				if !to_process.include? "("
-					new_len += repeat * len
+					sub_len += repeat * len
 				else
-					new_len += repeat * count(to_process)
+					sub_len += repeat * count(to_process)
 				end
 			else
-				new_len += 1
-				index += 1
+				sub_len += 1
+				pos += 1
 			end
 		end
-		return new_len
+
+		return sub_len
 	end
 
 	def output
