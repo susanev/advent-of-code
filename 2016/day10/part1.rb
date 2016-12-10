@@ -60,6 +60,7 @@ class Part1
 					if !instr_high.nil?
 						@bots[instr_high].push(bot_values.max)
 					end
+					
 					# clears the bots values and the processed instruction
 					@bots[bot] = []
 					@instructions.delete(bot)
