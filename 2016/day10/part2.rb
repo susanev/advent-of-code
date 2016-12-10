@@ -66,7 +66,7 @@ class Part2
 	end
 
 	def output
-		puts "the product is #{@output[CONST_PRODUCT[0]]*@output[CONST_PRODUCT[1]]*@output[CONST_PRODUCT[2]]}"
+		puts "the product is #{@output[CONST_PRODUCT[0]] * @output[CONST_PRODUCT[1]] * @output[CONST_PRODUCT[2]]}"
 	end
 end
 
