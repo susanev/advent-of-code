@@ -45,13 +45,11 @@ class Part1
 	# searches for the instructions for that bot
 	# repeats until the values are found
 	def process_instructions
-		found_bot = false
-		until found_bot
+		while @bot == 0
 			@bots.each do |bot, bot_values|
 				if bot_values.length > 1
 					if bot_values.min == CONST_LOW && bot_values.max == CONST_HIGH
 						@bot = bot
-						found_bot = true
 					end
 
 					if !@instructions[bot][:low][:bot].nil?
