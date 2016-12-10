@@ -1,5 +1,5 @@
 # susan evans
-# last edited 12/08/2016
+# last edited 12/09/2016
 # advent of code 2016, day 9, part 1
 # decompresses a file that was compressed
 # using markers of the form (numxnum)
