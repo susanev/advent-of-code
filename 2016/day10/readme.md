@@ -6,14 +6,14 @@ Some of the instructions specify that a specific-valued microchip should be give
 
 For example, consider the following instructions:
 
-	```
-	value 5 goes to bot 2
-	bot 2 gives low to bot 1 and high to bot 0
-	value 3 goes to bot 1
-	bot 1 gives low to output 1 and high to bot 0
-	bot 0 gives low to output 2 and high to output 0
-	value 2 goes to bot 2
-	```
+```
+value 5 goes to bot 2
+bot 2 gives low to bot 1 and high to bot 0
+value 3 goes to bot 1
+bot 1 gives low to output 1 and high to bot 0
+bot 0 gives low to output 2 and high to output 0
+value 2 goes to bot 2
+```
 
 * Initially, bot 1 starts with a value-3 chip, and bot 2 starts with a value-2 chip and a value-5 chip.
 * Because bot 2 has two microchips, it gives its lower one (2) to bot 1 and its higher one (5) to bot 0.
