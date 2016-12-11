@@ -1,5 +1,5 @@
 # susan evans
-# last edited 12/09/2016
+# last edited 12/10/2016
 # advent of code 2016, day 10, part 1
 # processes a file of instructions, to discover
 # the bot that compares the CONST_LOW and 
