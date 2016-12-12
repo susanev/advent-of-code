@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 1
+## Day 5
 
 ### Part 1
 Santa needs help figuring out which strings in his text file are naughty or nice.

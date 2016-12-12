@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 1
+## Day 4
 
 ### Part 1
 Santa needs help mining some AdventCoins (very similar to bitcoins) to use as gifts for all the economically forward-thinking little girls and boys.

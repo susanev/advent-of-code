@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 2
+## Day 3
 
 ### Part 1
 In a valid triangle, the sum of any two sides must be larger than the remaining side. For example, the "triangle" given above is impossible, because 5 + 10 is not larger than 25.

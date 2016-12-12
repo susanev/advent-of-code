@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 1
+## Day 8
 
 ### Part 1
 It is important to realize the difference between the number of characters in the code representation of the string literal and the number of characters in the in-memory string itself.

@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 2
+## Day 6
 
 ### Part 1
 You've recorded the repeating message signal (your puzzle input), but the data seems quite corrupted - almost too badly to recover. Almost.

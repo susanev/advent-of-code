@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 1
+## Day 7
 
 ### Part 1
 Each wire has an identifier (some lowercase letters) and can carry a 16-bit signal (a number from 0 to 65535). A signal is provided to each wire by a gate, another wire, or some specific value. Each wire can only get a signal from one source, but can provide its signal to multiple destinations. A gate provides no signal until all of its inputs have a signal.

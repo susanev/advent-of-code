@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 2
+## Day 4
 
 ### Part 1
 Each room consists of an encrypted name (lowercase letters separated by dashes) followed by a dash, a sector ID, and a checksum in square brackets.

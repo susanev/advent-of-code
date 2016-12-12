@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 1
+## Day 6
 
 ### Part 1
 Because your neighbors keep defeating you in the holiday house decorating contest year after year, you've decided to deploy one million lights in a 1000x1000 grid.
