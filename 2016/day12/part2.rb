@@ -43,7 +43,7 @@ class Part2
 			elsif instr[:type] == :dec
 				@registers[instr[1]] -=1
 			elsif @registers[instr[1]] != 0 #jnz
-					pos += instr[2] - 1
+				pos += instr[2] - 1
 			end
 			pos += 1
 		end
