@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 2
+## Day 12
 
 ### Part 1
 The assembunny code you've extracted operates on four registers (a, b, c, and d) that start at 0 and can hold any integer. However, it seems to make use of only a few instructions:
