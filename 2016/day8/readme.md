@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 2
+## Day 8
 
 ### Part 1
 The magnetic strip on the card you swiped encodes a series of instructions for the screen; these instructions are your puzzle input. The screen is 50 pixels wide and 6 pixels tall, all of which start off, and is capable of three somewhat peculiar operations:
