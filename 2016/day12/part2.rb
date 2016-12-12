@@ -20,7 +20,17 @@ class Part2
 	end
 
 	def build_instruction(line)
-		instr = {type: line[0].to_sym}
+		instr = {}
+		if line[0] == "cpy"
+			if is_number? line[1]
+				instr[:type] = :cpy_val
+			else
+				instr[:type] = :cpy_ref
+			end
+		else
+			instr[:type] = line[0].to_sym
+		end
+
 		instr[1] = convert(line[1])
 		if !line[2].nil?
 			instr[2] = convert(line[2])
@@ -32,12 +42,10 @@ class Part2
 		pos = 0
 		while pos < @instructions.length
 			instr = @instructions[pos]
-			if instr[:type] == :cpy
-				if is_number?(instr[1])
-					@registers[instr[2]] = instr[1]
-				else
-					@registers[instr[2]] = @registers[instr[1]]
-				end
+			if instr[:type] == :cpy_val
+				@registers[instr[2]] = instr[1]
+			elsif instr[:type] == :cpy_ref
+				@registers[instr[2]] = @registers[instr[1]]
 			elsif instr[:type] == :inc
 				@registers[instr[1]] += 1
 			elsif instr[:type] == :dec
