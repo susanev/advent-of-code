@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 2
+## Day 9
 
 ### Part 1
 The format compresses a sequence of characters. Whitespace is ignored. To indicate that some sequence should be repeated, a marker is added to the file, like (10x2). To decompress this marker, take the subsequent 10 characters and repeat them 2 times. Then, continue reading the file after the repeated data. The marker itself is not included in the decompressed output.
