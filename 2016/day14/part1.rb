@@ -2,6 +2,11 @@
 # last edited 12/14/2016
 # advent of code 2016, day 14, part 1
 
+# Generates keys using MD5, using @salt and an increasing integer.
+# The keys must have a character that repeats 3 times in a row, and
+# one of the next 1000 hashes must repeat that same character 5 times in a row.
+# Outputs the 64th key that is generated
+
 class Part1
 	require 'digest/md5'
 
@@ -17,6 +22,7 @@ class Part1
 
 	def generate_keys
 		md5_index = 0
+		# stores keys with 3 characters repeated
 		maybe_keys = {}
 		until @keys.length >= CONST_NUM_KEYS do 
 			md5 = Digest::MD5.hexdigest(@salt + md5_index.to_s)
@@ -35,12 +41,16 @@ class Part1
 		end
 	end
 
+	# matches repeated character, is not itself, and has an index greater
+	# than the 3-repeat
 	def valid_key? (match, match_index, value)
 		match == value[:repeat] && 
 			match_index != value[:index] && 
 			match_index - value[:index] < CONST_WITHIN
 	end
 
+	# returns nil if no repeat, otherwise returns the single
+	# character that was repeated
 	def contains_repeat(md5, repeat)
 		if (result = md5[/((.)\2{#{repeat-1}})/]).nil?
 			return nil
@@ -50,7 +60,7 @@ class Part1
 	end
 
 	def output
-		puts "#{@keys[CONST_NUM_KEYS - 1]}"
+		puts "#{@keys[CONST_NUM_KEYS - 1]} produces the 64th one-time pad key"
 	end
 end
 
