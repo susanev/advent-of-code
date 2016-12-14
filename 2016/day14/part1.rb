@@ -25,7 +25,7 @@ class Part1
 			end
 			if result = contains_repeat(md5, 5)
 				maybe_keys.each do |k,v| 
-					if valid_key?(result[0,3], md5_index, v) 
+					if valid_key?(result, md5_index, v) 
 						@keys.push(v[:index])
 						maybe_keys.delete(k)
 					end
@@ -42,7 +42,11 @@ class Part1
 	end
 
 	def contains_repeat(md5, repeat)
-		return md5[/((.)\2{#{repeat-1},#{repeat-1}})/]
+		if (result = md5[/((.)\2{#{repeat-1}})/]).nil?
+			return nil
+		else
+			return result[0]
+		end
 	end
 
 	def output
