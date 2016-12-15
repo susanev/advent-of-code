@@ -56,9 +56,9 @@ class Part1
 		@grid[y][x] = "O"
 		shortest = 0
 		if !(shortest = [find_path(x + 1, y, d + 1),
-										find_path(x - 1, y, d + 1),
-										find_path(x, y + 1, d + 1),
-										find_path(x, y - 1, d + 1)].select{ |n| n > 0 }.min).nil?
+				 find_path(x - 1, y, d + 1),
+				 find_path(x, y + 1, d + 1),
+				 find_path(x, y - 1, d + 1)].select{ |n| n > 0 }.min).nil?
 			return shortest
 		else
 			@grid[y][x] = "."
