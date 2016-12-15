@@ -41,8 +41,8 @@ class Part1
 		end
 	end
 
-  # matches repeated character, is not itself, and has an index within
-  # the CONST_WITHIN limit
+  	# matches repeated character, is not itself, and has an index within
+  	# the CONST_WITHIN limit
 	def valid_key? (match, match_index, value)
 		match == value[:repeat] && 
 			match_index != value[:index] && 
