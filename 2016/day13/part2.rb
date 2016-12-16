@@ -7,10 +7,10 @@
 # Thanks to http://www.redblobgames.com/pathfinding/a-star/introduction.html for the path finding tutorial 
 
 class Part2
-  CONST_HEIGHT = 25
-  CONST_WIDTH = 25
-  CONST_START = [1, 1]
   CONST_MAX_STEPS = 50
+  CONST_HEIGHT = CONST_MAX_STEPS / 2
+  CONST_WIDTH = CONST_MAX_STEPS / 2
+  CONST_START = [1, 1]
 
   def initialize(file_name)
     @fav_num = File.open(file_name, "r").first.to_i
