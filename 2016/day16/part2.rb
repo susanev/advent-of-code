@@ -2,6 +2,8 @@
 # last edited 12/15/2016
 # advent of code 2016, day 16, part 2
 
+# dear susan, remember! << modifies original string, + creates a new one! ugh.
+
 class Part2
 	CONST_DISK_SIZE = 35651584
 
