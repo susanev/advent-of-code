@@ -1,5 +1,5 @@
 # susan evans
-# last edited 12/12/2016
+# last edited 12/15/2016
 # advent of code 2016, day 123, part 1
 
 # constructs the room with walls using a formula
