@@ -30,10 +30,7 @@ class Part1
       @grid[y] = Array.new(CONST_WIDTH)
       CONST_WIDTH.times do |x|
         bin = (x * x + 3 * x + 2 * x * y + y + y * y + @fav_num).to_s(2)
-        if bin.scan(/1/).count % 2 == 0
-          @grid[y][x] = "."
-        else
-          @grid[y][x] = "#";
+        bin.scan(/1/).count % 2 == 0 ? @grid[y][x] = "." : @grid[y][x] = "#";
         end
       end
     end
