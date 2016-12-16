@@ -5,7 +5,7 @@
 class Part1
 	def initialize(file_name)
 		@discs = {}
-		@n = 0
+		@time = 0
 		process_file(file_name)
 		find_n
 		output
@@ -23,16 +23,16 @@ class Part1
 	def find_n
 		found = nil
 		until found
-			@n += 1
+			@time += 1
 			found = true
 			(1..@discs.length).each do |i|
-				found = found && (@n + i + @discs[i][:start]) % @discs[i][:positions] == 0 
+				found = found && (@time + i + @discs[i][:start]) % @discs[i][:positions] == 0 
 			end		
 		end
 	end
 
 	def output
-		puts "press the button at time=#{@n}"
+		puts "press the button at time=#{@time}"
 	end
 end
 
