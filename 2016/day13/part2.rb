@@ -3,7 +3,7 @@
 # advent of code 2016, day 13, part 2
 
 # finds all reachable locations from START
-# in 50 steps or less
+# in MAX_STEPS steps or less
 # Thanks to http://www.redblobgames.com/pathfinding/a-star/introduction.html for the path finding tutorial 
 
 class Part2
