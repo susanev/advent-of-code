@@ -21,7 +21,6 @@ class Part2
     # starts at 1 to include starting location
     @locations = 1
     find_locations
-    #count_locations
     output
   end
 
