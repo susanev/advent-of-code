@@ -5,7 +5,7 @@
 class Part2
 	CONST_DISK_SIZE = 35651584
 
-def initialize(file_name)
+	def initialize(file_name)
 		@data = File.open(file_name, "r").first
 		generate_data
 		find_valid_checksum
