@@ -2,40 +2,35 @@
 # last edited 12/12/2016
 # advent of code 2016, day 13, part 2
 
-# finds all reachable locations, does not count
-# within the 50 range yet
+# finds all reachable locations from START
+# in 50 steps or less
+# Thanks to http://www.redblobgames.com/pathfinding/a-star/introduction.html for the path finding tutorial 
 
 class Part2
   CONST_HEIGHT = 25
   CONST_WIDTH = 25
-  CONST_MAX_PATH = 50
-  CONST_NEIGHBORS = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+  CONST_START = [1, 1]
+  CONST_MAX_STEPS = 50
 
   def initialize(file_name)
     @fav_num = File.open(file_name, "r").first.to_i
     build_grid
-
-    @map = [[1, 1], 0]
-    @visited = {[1 ,1] => true}
+    @map = [CONST_START]
+    @came_from = {CONST_START => nil}
+    # starts at 1 to include starting location
+    @locations = 1
     find_locations
+    count_locations
     output
   end
 
   def build_grid
     @grid = Array.new(CONST_HEIGHT)
-    @grid.length.times do |i|
-      @grid[i] = Array.new(CONST_WIDTH)
-    end
     CONST_HEIGHT.times do |y|
+      @grid[y] = Array.new(CONST_WIDTH)
       CONST_WIDTH.times do |x|
         bin = (x * x + 3 * x + 2 * x * y + y + y * y + @fav_num).to_s(2)
-        if x == 31 && y == 39
-          @grid[y][x] = "?"
-        elsif bin.scan(/1/).count % 2 == 0
-          @grid[y][x] = "."
-        else
-          @grid[y][x] = "#";
-        end
+        bin.scan(/1/).count % 2 == 0 ? @grid[y][x] = "." : @grid[y][x] = "#";
       end
     end
   end
@@ -53,10 +48,9 @@ class Part2
     while @map.length > 0
       current = @map.pop
       get_neighbors(current[0], current[1]).each do |neighbor|
-        if !@visited.include? neighbor
-          @grid[neighbor[0]][neighbor[1]] = "O"
+        if !@came_from.include? neighbor
           @map.push(neighbor)
-          @visited[neighbor] = true
+          @came_from[neighbor] = current
         end
       end
     end
@@ -64,7 +58,7 @@ class Part2
 
   def get_neighbors(x, y)
     neighbors = []
-    CONST_NEIGHBORS.each do |dx, dy| 
+    [[1, 0], [-1, 0], [0, 1], [0, -1]].each do |dx, dy| 
       neighbors.push([x + dx,y + dy]) if valid_cell(x + dx, y + dy)
     end
     return neighbors
@@ -76,9 +70,22 @@ class Part2
             @grid[x][y] == "."
   end
 
+  def count_locations
+    @came_from.each do |k,v|
+      current = k
+      count = 1
+      while current != CONST_START && count < CONST_MAX_STEPS
+        current = @came_from[current]
+        count += 1
+      end
+      if current == CONST_START
+        @locations += 1
+      end
+    end
+  end
+
   def output
-    display_grid
-    puts "#{@visited.length}"
+    puts "#{@locations} distinct x,y coordinates from #{CONST_START[0]},#{CONST_START[1]}"
   end
 end
 
