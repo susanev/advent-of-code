@@ -56,7 +56,7 @@ class Part1
   end
 
   def is_not_goal(current)
-  	return current.nil? || current == CONST_GOAL ? nil : current
+    return current.nil? || current == CONST_GOAL ? nil : current
   end
 
   def get_neighbors(x, y)
