@@ -31,7 +31,6 @@ class Part1
       CONST_WIDTH.times do |x|
         bin = (x * x + 3 * x + 2 * x * y + y + y * y + @fav_num).to_s(2)
         bin.scan(/1/).count % 2 == 0 ? @grid[y][x] = "." : @grid[y][x] = "#";
-        end
       end
     end
   end
@@ -57,11 +56,7 @@ class Part1
   end
 
   def is_not_goal(current)
-  	if current.nil? || current == CONST_GOAL
-  		return nil?
-  	else
-  		return current
-  	end
+  	return current.nil? || current == CONST_GOAL ? nil : current
   end
 
   def get_neighbors(x, y)
