@@ -27,7 +27,7 @@ class Part1
   def build_grid
     @grid = Array.new(CONST_HEIGHT)
     CONST_HEIGHT.times do |y|
-    	@grid[y] = Array.new(CONST_WIDTH)
+      @grid[y] = Array.new(CONST_WIDTH)
       CONST_WIDTH.times do |x|
         bin = (x * x + 3 * x + 2 * x * y + y + y * y + @fav_num).to_s(2)
         if bin.scan(/1/).count % 2 == 0
