@@ -11,7 +11,6 @@ class Part1
   CONST_WIDTH = 45
   CONST_START = [1, 1]
   CONST_GOAL = [39, 31]
-  CONST_NEIGHBORS = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 
   def initialize(file_name)
     @fav_num = File.open(file_name, "r").first.to_i
@@ -61,7 +60,7 @@ class Part1
 
   def get_neighbors(x, y)
     neighbors = []
-    CONST_NEIGHBORS.each do |dx, dy| 
+    [[1, 0], [-1, 0], [0, 1], [0, -1]].each do |dx, dy| 
       neighbors.push([x + dx,y + dy]) if valid_cell(x + dx, y + dy)
     end
     return neighbors
