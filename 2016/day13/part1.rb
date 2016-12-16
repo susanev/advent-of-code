@@ -20,7 +20,6 @@ class Part1
     @came_from = {CONST_START => nil}
     @path = [CONST_GOAL]
     find_locations
-    #puts @came_from
     find_path
     output
   end
