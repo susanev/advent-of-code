@@ -25,7 +25,7 @@ class Part1
 		new_str = ""
 		pos = str.length - 1
 		while pos > -1
-			str[pos] == "0" ? new_str << "1" : new_str << "0"
+			new_str << (str[pos] == "0" ? "1" : "0")
 			pos -= 1
 		end
 		return new_str
@@ -42,11 +42,7 @@ class Part1
 		pos = 0
 		checksum = ""
 		while pos < data.length - 1
-			if data[pos] == data[pos + 1]
-				checksum << "1"
-			else
-				checksum << "0"
-			end
+			checksum << (data[pos] == data[pos + 1] ? "1" : "0")
 			pos += 2
 		end
 		@checksum = checksum
