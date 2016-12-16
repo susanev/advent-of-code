@@ -17,10 +17,11 @@ class Part2
     build_grid
     @map = [CONST_START]
     @came_from = {CONST_START => nil}
+    @cost_so_far = {CONST_START => 0}
     # starts at 1 to include starting location
     @locations = 1
     find_locations
-    count_locations
+    #count_locations
     output
   end
 
@@ -33,6 +34,8 @@ class Part2
         bin.scan(/1/).count % 2 == 0 ? @grid[y][x] = "." : @grid[y][x] = "#";
       end
     end
+    # sets starting location to visited
+    @grid[CONST_START[0]][CONST_START[1]] = "O"
   end
 
   def display_grid
@@ -48,7 +51,10 @@ class Part2
     while @map.length > 0
       current = @map.pop
       get_neighbors(current[0], current[1]).each do |neighbor|
-        if !@came_from.include? neighbor
+        new_cost = @cost_so_far[current] + 1
+        if !@came_from.include?(neighbor) && !@cost_so_far.include?(neighbor) &&  new_cost <= CONST_MAX_STEPS
+          @grid[neighbor[0]][neighbor[1]] = "O"
+          @cost_so_far[neighbor] = new_cost
           @map.push(neighbor)
           @came_from[neighbor] = current
         end
@@ -70,22 +76,9 @@ class Part2
             @grid[x][y] == "."
   end
 
-  def count_locations
-    @came_from.each do |k,v|
-      current = k
-      count = 1
-      while current != CONST_START && count < CONST_MAX_STEPS
-        current = @came_from[current]
-        count += 1
-      end
-      if current == CONST_START
-        @locations += 1
-      end
-    end
-  end
-
   def output
-    puts "#{@locations} distinct x,y coordinates from #{CONST_START[0]},#{CONST_START[1]}"
+    display_grid
+    puts "#{@cost_so_far.length} distinct x,y coordinates from #{CONST_START[0]},#{CONST_START[1]}"
   end
 end
 
