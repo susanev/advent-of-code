@@ -1,6 +1,6 @@
 # susan evans
-# last edited 12/14/2016
-# advent of code 2016, day 15, part 1
+# last edited 12/16/2016
+# advent of code 2016, day 16, part 1
 
 class Part1
 	def initialize(file_name)
