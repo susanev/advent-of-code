@@ -16,22 +16,23 @@ class Part2
 
 	def initialize(file_name)
 		@code = File.open(file_name, "r").first
-		@longest = 0
-		find_longest_path
+		@longest = find_longest_path
 		output
 	end
 
 	def find_longest_path
+		longest = 0
 		locations = [{dirs: "", loc: [0, 0]}]
 		until locations.empty?	  
 			get_neighbors(locations.pop).each do |neighbor|
 				if neighbor[:loc] == CONST_GOAL
-					@longest = [@longest, neighbor[:dirs].length].max
+					longest = [longest, neighbor[:dirs].length].max
 				else
 					locations.push(neighbor)
 				end
 			end
 		end
+		return longest
 	end
 
 	def get_neighbors(location)
