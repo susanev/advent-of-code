@@ -57,7 +57,7 @@ class Part1
 	end
 
 	def output
-		puts "The shortest is: #{@shortest}"
+		puts "The shortest path is: #{@shortest}"
 	end
 end
 
