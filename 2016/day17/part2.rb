@@ -50,11 +50,7 @@ class Part2
 	end
 
 	def state(str)
-		if CONST_VALID.include? str
-			return :open
-		else
-			return :closed
-		end
+		return CONST_VALID.include?(str) ? :open : :closed
 	end
 
 	def output
