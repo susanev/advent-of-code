@@ -10,24 +10,24 @@ class Part1
 	CONST_HEIGHT = 4
 	CONST_VALID = "bcdef"
 
-  def initialize(file_name)
-  	@code = File.open(file_name, "r").first
-  	@shortest = find_shortest_path
-  	output
-  end
+	def initialize(file_name)
+		@code = File.open(file_name, "r").first
+		@shortest = find_shortest_path
+		output
+	end
 
-  def find_shortest_path
+	def find_shortest_path
 		locations = [{dirs: "", loc: [0, 0]}]
 		until locations.empty?
-		  location = locations.pop	  
-	    get_neighbors(location[:dirs], location[:loc][0], location[:loc][1]).each do |neighbor|
-	      if neighbor[:loc] == CONST_GOAL
-	        return neighbor[:dirs]
-	      else
-	        locations.push(neighbor)
-	      end
-	    end
-	  end
+			location = locations.pop	  
+			get_neighbors(location[:dirs], location[:loc][0], location[:loc][1]).each do |neighbor|
+				if neighbor[:loc] == CONST_GOAL
+					return neighbor[:dirs]
+				else
+					locations.push(neighbor)
+				end
+			end
+		end
 	end
 
   def get_neighbors(dirs, x, y)
