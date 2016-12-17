@@ -9,6 +9,10 @@ class Part1
 	CONST_WIDTH = 4
 	CONST_HEIGHT = 4
 	CONST_VALID = "bcdef"
+	CONST_DIRECTIONS = {0 => {dir: "U", trf: [0, -1]},
+											1 => {dir: "D", trf: [0, 1]},
+											2 => {dir: "L", trf: [-1, 0]},
+											3 => {dir: "R", trf: [1, 0]}}
 
 	def initialize(file_name)
 		@code = File.open(file_name, "r").first
@@ -33,23 +37,19 @@ class Part1
 	def get_neighbors(dirs, x, y)
 		neighbors = []
 		code = Digest::MD5.hexdigest("#{@code}#{dirs}")[0, 4]
-		if y > 0 && state(code[0]) == :open
-			neighbors.push({dirs: dirs + "U", loc: [x, y - 1]})
-		end
-		if y < CONST_HEIGHT - 1 && state(code[1]) == :open
-			neighbors.push({dirs: dirs + "D", loc: [x, y + 1]})
-		end
-		if x > 0 && state(code[2]) == :open
-			neighbors.push({dirs: dirs + "L", loc: [x - 1, y]})
-		end
-		if x < CONST_WIDTH - 1 && state(code[3]) == :open
-			neighbors.push({dirs: dirs + "R", loc: [x + 1, y]})
+		CONST_DIRECTIONS.each do |k, v|
+			new_loc = [x + v[:trf][0], y + v[:trf][1]]
+			if valid_move(new_loc[0], new_loc[1], code[k]) 
+				neighbors.push({dirs: dirs + v[:dir], loc: new_loc})
+			end
 		end
 		return neighbors
 	end
 
-	def state(str)
-		return CONST_VALID.include?(str) ? :open : :closed
+	def valid_move(x, y, str)
+    x > -1 && x < CONST_WIDTH && 
+    	y > -1 && y < CONST_HEIGHT &&
+    	CONST_VALID.include?(str) 
 	end
 
 	def output
