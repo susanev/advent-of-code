@@ -30,9 +30,9 @@ class Part1
 		end
 	end
 
-  def get_neighbors(dirs, x, y)
-  	neighbors = []
-  	code = Digest::MD5.hexdigest("#{@code}#{dirs}")[0, 4]
+	def get_neighbors(dirs, x, y)
+		neighbors = []
+		code = Digest::MD5.hexdigest("#{@code}#{dirs}")[0, 4]
 		if y > 0 && state(code[0]) == :open
 			neighbors.push({dirs: dirs + "U", loc: [x, y - 1]})
 		end
