@@ -22,9 +22,8 @@ class Part1
 
 	def find_shortest_path
 		locations = [{dirs: "", loc: [0, 0]}]
-		until locations.empty?
-			location = locations.pop	  
-			get_neighbors(location).each do |neighbor|
+		until locations.empty? 
+			get_neighbors(locations.pop).each do |neighbor|
 				if neighbor[:loc] == CONST_GOAL
 					return neighbor[:dirs]
 				else
