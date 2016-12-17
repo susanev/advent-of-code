@@ -24,7 +24,7 @@ class Part1
 		locations = [{dirs: "", loc: [0, 0]}]
 		until locations.empty?
 			location = locations.pop	  
-			get_neighbors(location[:dirs], location[:loc][0], location[:loc][1]).each do |neighbor|
+			get_neighbors(location).each do |neighbor|
 				if neighbor[:loc] == CONST_GOAL
 					return neighbor[:dirs]
 				else
@@ -34,11 +34,12 @@ class Part1
 		end
 	end
 
-	def get_neighbors(dirs, x, y)
+	def get_neighbors(location)
+		dirs = location[:dirs]
 		neighbors = []
 		code = Digest::MD5.hexdigest("#{@code}#{dirs}")[0, 4]
 		CONST_DIRECTIONS.each do |k, v|
-			new_loc = [x + v[:trf][0], y + v[:trf][1]]
+			new_loc = [location[:loc][0] + v[:trf][0], location[:loc][1] + v[:trf][1]]
 			if valid_move(new_loc[0], new_loc[1], code[k]) 
 				neighbors.push({dirs: dirs + v[:dir], loc: new_loc})
 			end
