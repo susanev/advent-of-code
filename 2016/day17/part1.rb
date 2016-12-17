@@ -10,9 +10,9 @@ class Part1
 	CONST_HEIGHT = 4
 	CONST_VALID = "bcdef"
 	CONST_DIRECTIONS = {0 => {dir: "U", trf: [0, -1]},
-											1 => {dir: "D", trf: [0, 1]},
-											2 => {dir: "L", trf: [-1, 0]},
-											3 => {dir: "R", trf: [1, 0]}}
+			    1 => {dir: "D", trf: [0, 1]},
+			    2 => {dir: "L", trf: [-1, 0]},
+			    3 => {dir: "R", trf: [1, 0]}}
 
 	def initialize(file_name)
 		@code = File.open(file_name, "r").first
@@ -47,9 +47,9 @@ class Part1
 	end
 
 	def valid_move(x, y, str)
-    x > -1 && x < CONST_WIDTH && 
-    	y > -1 && y < CONST_HEIGHT &&
-    	CONST_VALID.include?(str) 
+    		x > -1 && x < CONST_WIDTH && 
+    			y > -1 && y < CONST_HEIGHT &&
+    			CONST_VALID.include?(str) 
 	end
 
 	def output
