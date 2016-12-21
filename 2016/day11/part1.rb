@@ -2,6 +2,8 @@
 # last edited 12/10/2016
 # advent of code 2016, day 11, part 1
 
+# IN PROGRESS!!
+
 class Part1
 	require 'test/unit/assertions'
 	include Test::Unit::Assertions
