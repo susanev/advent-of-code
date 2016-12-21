@@ -11,9 +11,9 @@ class Part1
 
 	def initialize(file_name)
 		@grid = [[". ", "HM", ". ", "LM"],
-						 ["HG", ". ", ". ", ". "],
-						 [". ", ". ", "LG", ". "],
-						 [". ", ". ", ". ", ". "]]
+			 ["HG", ". ", ". ", ". "],
+			 [". ", ". ", "LG", ". "],
+			 [". ", ". ", ". ", ". "]]
 		@current_floor = 0
 		find_path
 		# tests
@@ -59,48 +59,48 @@ class Part1
 
 	def find_path
 		until @grid[3] == ["HG", "HM", "LG", "LM"]
-    	up = all_valid_moves(1)
-    	down = all_valid_moves(-1)
-    	if up.nil?
-    		move(-1, down[0])
-    	else
-    		move(1, up[0])
-    	end
-    	puts display_gird
-    end
-  end
+			up = all_valid_moves(1)
+			down = all_valid_moves(-1)
+			if up.nil?
+				move(-1, down[0])
+			else
+				move(1, up[0])
+			end
+			puts display_gird
+		end
+	 end
 
-  def all_valid_moves(dir)
-  	all = @grid[@current_floor].reject { |item| item == ". " }.combination(2).to_a.concat(@grid[@current_floor].reject { |item| item == ". " }.combination(1).to_a)
-  	all.each_with_index do |all_items, ai|
-  		new_all = Array.new(4)
-  		CONST_ORDER.each_with_index do |order_item, oi|
-  			if all_items.include? order_item
-  				new_all[oi] = order_item
-  			else
-  				new_all[oi] = ". "
-  			end
-  		end
-  		all[ai] = new_all
+  	def all_valid_moves(dir)
+		all = @grid[@current_floor].reject { |item| item == ". " }.combination(2).to_a.concat(@grid[@current_floor].reject { |item| item == ". " }.combination(1).to_a)
+		all.each_with_index do |all_items, ai|
+			new_all = Array.new(4)
+			CONST_ORDER.each_with_index do |order_item, oi|
+				if all_items.include? order_item
+					new_all[oi] = order_item
+				else
+					new_all[oi] = ". "
+				end
+			end
+			all[ai] = new_all
+		end
+		all = all.select { |items| valid_move(dir, items) }
   	end
-  	all = all.select { |items| valid_move(dir, items) }
-  end
 
-  def move(dir, items)
-  	if valid_move(dir, items)
-	  	items.each do |item|
-	  		if item != ". "
-		  		item_index = @grid[@current_floor].index(item)
-		  		@grid[@current_floor][item_index] = ". "
-		  		@grid[@current_floor + dir][item_index] = item
-		  	end
-	  	end
-	  	@current_floor += dir
-	  	return true
-	  else
-	  	return false
-	  end
-  end
+ 	def move(dir, items)
+		if valid_move(dir, items)
+			items.each do |item|
+				if item != ". "
+					item_index = @grid[@current_floor].index(item)
+					@grid[@current_floor][item_index] = ". "
+					@grid[@current_floor + dir][item_index] = item
+				end
+			end
+			@current_floor += dir
+			return true
+		else
+			return false
+		end
+  	end
 
 	def valid_move(dir, items)
 		if (@current_floor == 0 && dir == -1) ||
