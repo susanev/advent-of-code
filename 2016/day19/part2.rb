@@ -9,7 +9,7 @@ class Part2
 	end
 
 	def find_winner(goal)
-		n = 3 ** (Math.log(goal )/ Math.log(3)).floor
+		n = 3 ** (Math.log(goal) / Math.log(3)).floor
 		@winning_elf = goal - n
 		@winning_elf *= 2 if goal >= n * 2 
 	end
