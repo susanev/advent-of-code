@@ -4,7 +4,6 @@
 
 class Part2
 	def initialize(file_name)
-		# answer = 1410630
 		find_winner(File.open(file_name, "r").first.to_i)
 		output
 	end
