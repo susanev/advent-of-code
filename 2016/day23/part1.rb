@@ -8,6 +8,7 @@ class Part1
 	def initialize(file_name)
 		@instructions = []
 		@registers = {a: 7, b: 0, c: 0, d: 0}
+		@toggle_map = {inc: :dec, dec: :inc, tgl: :inc, jnz: :cpy_ref, cpy_val: :jnz, cpy_ref: :jnz}
 		process_file(file_name)	
 		process_instructions
 		output
@@ -34,12 +35,8 @@ class Part1
 			end
 
 			instr[1] = convert(line[1])
-			if !line[2].nil?
-				instr[2] = convert(line[2])
-			end
-			if !line[3].nil?
-				instr[3] = convert(line[3])
-			end
+			instr[2] = convert(line[2]) if line[2]
+			instr[3] = convert(line[3]) if line[3]
 			@instructions.push(instr)
 	end
 
@@ -70,15 +67,7 @@ class Part1
 			elsif instr[:type] == :tgl
 				toggle = pos + @registers[instr[1]]
 				if toggle < @instructions.length
-					if @instructions[toggle][:type] == :inc 
-						@instructions[toggle] = {:type => :dec, 1 => @instructions[toggle][1]}
-					elsif @instructions[toggle][:type] == :dec || @instructions[toggle][:type] == :tgl
-						@instructions[toggle] = {:type => :inc, 1 => @instructions[toggle][1]}
-					elsif @instructions[toggle][:type] == :jnz
-						@instructions[toggle] = {:type => :cpy_ref, 1 => @instructions[toggle][1], 2 => @instructions[toggle][2]}
-					elsif @instructions[toggle][:type] == :cpy_val || @instructions[toggle][:type] == :cpy_ref
-						@instructions[toggle] = {:type => :jnz, 1 => @instructions[toggle][1], 2 => @instructions[toggle][2]}
-					end
+					@instructions[toggle][:type] = @toggle_map[@instructions[toggle][:type]]
 				end
 			elsif @registers[instr[1]] != 0 #jnz
 				if is_number?(instr[2])
