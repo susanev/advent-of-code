@@ -35,7 +35,7 @@ class Part2
 	end
 
 	# if a sequence of instructions representing multiplication
-	# are found, it is replaced with a new mul instruction
+	# are found, they are replaced with a new mul instruction
 	def add_mul
 		pos = 0
 		while pos < @instructions.length - 6
