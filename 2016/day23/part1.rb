@@ -47,9 +47,7 @@ class Part1
 		pos = 0
 		while pos < @instructions.length
 			instr = @instructions[pos]
-			if instr[:type] == :mul
-				@registers[instr[1]] += (@registers[instr[2]] * @registers[instr[3]])
-			elsif instr[:type] == :cpy_val
+			if instr[:type] == :cpy_val
 				if !is_number?(instr[2])
 					if is_number?(instr[1])
 						@registers[instr[2]] = instr[1]
