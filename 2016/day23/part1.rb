@@ -37,11 +37,7 @@ class Part1
 			instr = @instructions[pos]
 			if instr[:type] == :cpy
 				if !is_number?(instr[2])
-					if is_number?(instr[1])
-						@registers[instr[2]] = instr[1]
-					else
-						@registers[instr[2]] = @registers[instr[1]]
-					end
+					@registers[instr[2]] = is_number?(instr[1])? instr[1] : @registers[instr[1]]
 				end
 			elsif instr[:type] == :inc
 				@registers[instr[1]] += 1
