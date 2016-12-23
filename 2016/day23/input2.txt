@@ -2,12 +2,12 @@ cpy a b
 dec b
 cpy a d
 cpy 0 a
-mul a b d
-cpy 0 c
-cpy 0 c
-cpy 0 c
+mul b d a
 cpy 0 c
 cpy 0 d
+none
+none
+none
 dec b
 cpy b c
 cpy c d
