@@ -9,7 +9,7 @@ class Part2
 	def initialize(file_name)
 		@instructions = []
 		@registers = {a: 12, b: 0, c: 0, d: 0}
-		@toggle_map = {inc: :dec, dec: :inc, tgl: :inc, jnz: :cpy_ref, cpy_val: :jnz, cpy_ref: :jnz}
+		@toggle_map = {inc: :dec, dec: :inc, tgl: :inc, jnz: :cpy, cpy: :jnz}
 		process_file(file_name)	
 		process_instructions
 		output
@@ -25,20 +25,11 @@ class Part2
 
 	def build_instruction(line)
 		instr = {}
-			if line[0] == "cpy"
-				if is_number? line[1]
-					instr[:type] = :cpy_val
-				else
-					instr[:type] = :cpy_ref
-				end
-			else
-				instr[:type] = line[0].to_sym
-			end
-
-			instr[1] = convert(line[1])
-			instr[2] = convert(line[2]) if line[2]
-			instr[3] = convert(line[3]) if line[3]
-			@instructions.push(instr)
+		instr[:type] = line[0].to_sym
+		instr[1] = convert(line[1])
+		instr[2] = convert(line[2]) if line[2]
+		instr[3] = convert(line[3]) if line[3]
+		@instructions.push(instr)
 	end
 
 	def process_instructions
@@ -47,20 +38,12 @@ class Part2
 			instr = @instructions[pos]
 			if instr[:type] == :mul
 				@registers[instr[1]] += (@registers[instr[2]] * @registers[instr[3]])
-			elsif instr[:type] == :cpy_val
+			elsif instr[:type] == :cpy
 				if !is_number?(instr[2])
 					if is_number?(instr[1])
 						@registers[instr[2]] = instr[1]
 					else
 						@registers[instr[2]] = @registers[instr[1]]
-					end
-				end
-			elsif instr[:type] == :cpy_ref
-				if !is_number?(instr[2])
-					if is_number?(instr[1])
-						@registers[instr[2].to_sym] = instr[1]
-					else
-						@registers[instr[2].to_sym] = @registers[instr[1]]
 					end
 				end
 			elsif instr[:type] == :inc
@@ -73,14 +56,10 @@ class Part2
 					@instructions[toggle][:type] = @toggle_map[@instructions[toggle][:type]]
 				end
 			elsif @registers[instr[1]] != 0 #jnz
-				if is_number?(instr[2])
-					if (pos + instr[2] - 1) < @instructions.length 
+				if is_number?(instr[2]) && (pos + instr[2] - 1) < @instructions.length 
 						pos += instr[2] - 1
-					end
-				else
-					if (pos + @registers[instr[2]] - 1) < @instructions.length 
-						pos += @registers[instr[2]] - 1
-					end
+				else (pos + @registers[instr[2]] - 1) < @instructions.length 
+					pos += @registers[instr[2]] - 1
 				end
 			end
 			pos += 1
