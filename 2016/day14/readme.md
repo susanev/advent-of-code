@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 12
+## Day 14
 
 ### Part 1
 To generate keys, you first get a stream of random data by taking the MD5 of a pre-arranged salt (your puzzle input) and an increasing integer index (starting with 0, and represented in decimal); the resulting MD5 hash should be represented as a string of lowercase hexadecimal digits.

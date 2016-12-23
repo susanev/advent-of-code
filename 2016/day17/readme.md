@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 12
+## Day 17
 
 ### Part 1
 You're trying to access a secure vault protected by a 4x4 grid of small rooms connected by doors. You start in the top-left room (marked `S`), and you can access the vault (marked `V`) once you reach the bottom-right room:

@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 12
+## Day 18
 
 ### Part 1
 Upon closer examination, the traps and safe tiles in this room seem to follow a pattern. The tiles are arranged into rows that are all the same width; you take note of the safe tiles (`.`) and traps (`^`) in the first row (your puzzle input).

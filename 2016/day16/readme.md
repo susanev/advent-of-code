@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 12
+## Day 16
 
 ### Part 1
 For the data to not be suspicious, it needs to have certain properties; purely random data will be detected as tampering. To generate appropriate random data, you'll need to use a modified dragon curve.
