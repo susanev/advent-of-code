@@ -1,5 +1,5 @@
 # Advent of Code
-## Day 23
+## Day 24
 
 ### Part 1
 
