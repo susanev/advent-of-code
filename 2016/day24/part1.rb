@@ -16,15 +16,6 @@ class Part1
 		end
 	end
 
-	def build_instruction(line)
-		instr = {}
-		instr[:type] = line[0].to_sym
-		(1..CONST_MAX_INPUTS).each do |i|
-			instr[i] = convert(line[i]) if line[i]
-		end
-		@instructions.push(instr)
-	end
-
 	def output
 		puts ""
 	end
