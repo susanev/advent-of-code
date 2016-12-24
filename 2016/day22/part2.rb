@@ -10,15 +10,16 @@ class Part2
 	CONST_HEIGHT = 25
   CONST_GOAL = [0, 0]
 	def initialize(file_name)
-		@current =  [0, CONST_WIDTH - 1]
 		@data = []
-		@zero = []
-		@count = 0
+		@current_pos =  [0, CONST_WIDTH - 1]
+		@zero_pos = []
+		@steps = 0
 		CONST_HEIGHT.times do
 			@data.push(Array.new(CONST_WIDTH, 0))
 		end
 		process_file(file_name)
 		move_zero
+		move_data
 		output
 	end
 
@@ -32,7 +33,7 @@ class Part2
 					line = line.split(" ")
 					@data[y][x] = {size: line[1].to_i, used: line[2].to_i}
 					if @data[y][x][:used] == 0
-						@zero = [y,x]
+						@zero_pos = [y,x]
 					end
 				end
 			end
@@ -45,61 +46,73 @@ class Part2
 				output = "#{data[:used]}/#{data[:size]}"
 				if i == CONST_GOAL[0] && j == CONST_GOAL[1]
 					output = "(#{output})"
-				elsif i == @current[0] && j ==@current[1]
+				elsif i == @current_pos_pos[0] && j ==@current_pos_pos[1]
 					output = "[#{output}]"
 				end
 				print "#{output} "
 			end
 			print "\n\n"
 		end
-		puts "---"
 	end
 
 	def move_zero
-		until @zero[0] == 1 
-			if @data[@zero[0]][@zero[1]][:size] < @data[@zero[0] - 1][@zero[1]][:used]
-				while @data[@zero[0]][@zero[1]][:size] < @data[@zero[0] - 1][@zero[1]][:used]
-					@data[@zero[0]][@zero[1]][:used] = @data[@zero[0]][@zero[1] - 1][:used]
-					@data[@zero[0]][@zero[1] - 1][:used] = 0
-					@zero[1] -= 1
-					@count += 1
+		# move zero up to y == 1 unless to big, then look right, then look left
+		# for a way up
+		until @zero_pos[0] == 1 
+			zero = @data[@zero_pos[0]][@zero_pos[1]]
+			up = @data[@zero_pos[0] - 1][@zero_pos[1]]
+			if zero[:size] < up[:used]
+				while zero[:size] < up[:used]
+					zero[:used] = @data[@zero_pos[0]][@zero_pos[1] - 1][:used]
+					@data[@zero_pos[0]][@zero_pos[1] - 1][:used] = 0
+					@zero_pos[1] -= 1
+					@steps += 1
+					zero = @data[@zero_pos[0]][@zero_pos[1]]
+					up = @data[@zero_pos[0] - 1][@zero_pos[1]]
 				end
 			else
-				@data[@zero[0]][@zero[1]][:used] += @data[@zero[0] - 1][@zero[1]][:used]
-				@data[@zero[0] - 1][@zero[1]][:used] = 0
-				@zero[0] -= 1
-				@count += 1
+				zero[:used] += up[:used]
+				up[:used] = 0
+				@zero_pos[0] -= 1
+				@steps += 1
 			end
 		end
-		until @zero[1] == CONST_WIDTH - 2
-			if @data[@zero[0]][@zero[1]][:size] < @data[@zero[0]][@zero[1] + 1][:used]
-				puts "ERROR2!"
-			end
-			@data[@zero[0]][@zero[1]][:used] += @data[@zero[0]][@zero[1] + 1][:used]
-			@data[@zero[0]][@zero[1] + 1][:used] = 0
-			@zero[1] += 1
-			@count += 1
+		until @zero_pos[1] == CONST_WIDTH - 2
+			zero = @data[@zero_pos[0]][@zero_pos[1]]
+			right = @data[@zero_pos[0]][@zero_pos[1] + 1]
+			zero[:used] += right[:used]
+			right[:used] = 0
+			@zero_pos[1] += 1
+			@steps += 1
 		end
-		until @zero[0] == 1 && @zero[1] == 0
-			temp = @data[@current[0]][@current[1] - 1][:used]
-			@data[@current[0]][@current[1] - 1][:used] = @data[@current[0]][@current[1]][:used]
-			@data[@current[0]][@current[1]][:used] = temp
-			@data[@current[0] + 1][@current[1] - 1][:used] = @data[@current[0] + 1][@current[1] - 2][:used]
-			@data[@current[0] + 1][@current[1] - 2][:used] = 0
-			@zero[1] -= 1
-			@current[1] -= 1
-			@count += 5
-		end
+	end
 
-		@data[@current[0] + 1][@current[1] - 1][:used] = @data[@current[0] + 1][@current[1] - 1][:used]
-		@data[@current[0]][@current[1] - 1][:used] = @data[@current[0]][@current[1]][:used]
-		@data[@current[0]][@current[1]][:used] = 0
-		@current[1] -= 1
-		@count += 2
+	def move_data
+		until @zero_pos[0] == 1 && @zero_pos[1] == 0
+			curr = @data[@current_pos[0]][@current_pos[1]]
+			left = @data[@current_pos[0]][@current_pos[1] - 1]
+			diag = @data[@current_pos[0] + 1][@current_pos[1] - 1]
+			new_curr = @data[@current_pos[0] + 1][@current_pos[1] - 2]
+			temp = left[:used]
+			left[:used] = curr[:used]
+			curr[:used] = temp
+			diag[:used] = new_curr[:used]
+			new_curr[:used] = 0
+			@zero_pos[1] -= 1
+			@current_pos[1] -= 1
+			@steps += 5
+		end
+		curr = @data[@current_pos[0]][@current_pos[1]]
+		diag = @data[@current_pos[0] + 1][@current_pos[1] - 1]
+		diag[:used] = diag[:used]
+		@data[@current_pos[0]][@current_pos[1] - 1][:used] = curr[:used]
+		curr[:used] = 0
+		@current_pos[1] -= 1
+		@steps += 2
 	end
 
 	def output
-		puts "count: #{@count}"
+		puts "count: #{@steps}"
 	end
 end
 
