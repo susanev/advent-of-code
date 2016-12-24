@@ -5,7 +5,7 @@
 class Part1
 	def initialize(file_name)
 		@instructions = []
-		@registers = {a: 0, b: 0, c: 0, d: 0}
+		@registers = {a: 7, b: 0, c: 0, d: 0}
 		process_file(file_name)	
 		process_instructions
 		output
