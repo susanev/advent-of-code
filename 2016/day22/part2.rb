@@ -56,8 +56,8 @@ class Part2
 	end
 
 	def move_zero
-		# move zero up to y == 1 unless to big, then look right, then look left
-		# for a way up
+		# moves up to y == 1
+		# if not enough space, goes left until can go up
 		until @zero_pos[0] == 1 
 			zero = @data[@zero_pos[0]][@zero_pos[1]]
 			up = @data[@zero_pos[0] - 1][@zero_pos[1]]
@@ -77,6 +77,7 @@ class Part2
 				@steps += 1
 			end
 		end
+		# assumes always enough space
 		until @zero_pos[1] == CONST_WIDTH - 2
 			zero = @data[@zero_pos[0]][@zero_pos[1]]
 			right = @data[@zero_pos[0]][@zero_pos[1] + 1]
@@ -87,7 +88,9 @@ class Part2
 		end
 	end
 
+	# assumes always enough space
 	def move_data
+		# moves almost all the way over
 		until @zero_pos[0] == 1 && @zero_pos[1] == 0
 			curr = @data[@current_pos[0]][@current_pos[1]]
 			left = @data[@current_pos[0]][@current_pos[1] - 1]
@@ -102,6 +105,7 @@ class Part2
 			@current_pos[1] -= 1
 			@steps += 5
 		end
+		# the last two final movements
 		curr = @data[@current_pos[0]][@current_pos[1]]
 		diag = @data[@current_pos[0] + 1][@current_pos[1] - 1]
 		diag[:used] = diag[:used]
