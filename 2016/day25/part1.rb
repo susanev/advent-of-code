@@ -61,7 +61,7 @@ class Part1
 					pos += inc - 1 if (pos + inc - 1) < @instructions.length
 				end
 			elsif instr[:type] == :out
-				out << (is_number?(instr[1])? out << instr[1] : @registers[instr[1]]).to_s
+				out << (is_number?(instr[1])? instr[1] : @registers[instr[1]]).to_s
 			end
 			pos += 1
 
