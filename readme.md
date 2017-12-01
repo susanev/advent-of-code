@@ -1,6 +1,15 @@
 # Advent of Code
 _This repository holds my solutions (written in Ruby) for [Advent of Code](http://adventofcode.com)_
-*: Not yet finished
+\*: Not yet finished
+
+| [2017](2017) | | | | |
+| :--- | :--- | :--- | :--- | :--- |
+| [Day 1](2017/day1) | | | | |
+| | | | | |
+| | | | | |
+| | | | | |
+| | | | | |
+
 
 | [2016](2016) | | | | |
 | :--- | :--- | :--- | :--- | :--- |
