@@ -12,6 +12,8 @@ For example:
 
 What is the solution to your captcha?
 
+[Part 1 Solution](part1.rb)
+
 ### Part 2
 Now, instead of considering the next digit, it wants you to consider the digit halfway around the circular list. That is, if your list contains 10 items, only include a digit in your sum if the digit 10/2 = 5 steps forward matches it. Fortunately, your list has an even number of elements.
 
@@ -21,3 +23,5 @@ For example:
 123425 produces 4, because both 2s match each other, but no other digit has a match.
 123123 produces 12.
 12131415 produces 4.
+
+[Part 2 Solution](part2.rb)
