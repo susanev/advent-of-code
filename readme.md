@@ -3,6 +3,7 @@ _This repository holds my solutions (written in Ruby) for [Advent of Code](http:
 \*: Not yet finished
 
 ## [2017](2017)
+| | | | | |
 | :--- | :--- | :--- | :--- | :--- |
 | [Day 1](2017/day01) | | | | |
 | [Day 2](2017/day02) | | | | |
@@ -12,6 +13,8 @@ _This repository holds my solutions (written in Ruby) for [Advent of Code](http:
 
 
 ## [2016](2016)
+| | | | | |
+
 | :--- | :--- | :--- | :--- | :--- |
 | [Day 1](2016/day01) | [Day 6](2016/day06) | [Day 11](2016/day11)* | [Day 16](2016/day16) | [Day 21](2016/day21) |
 | [Day 2](2016/day02) | [Day 7](2016/day07) | [Day 12](2016/day12) | [Day 17](2016/day17) | [Day 22](2016/day22) |
@@ -20,6 +23,7 @@ _This repository holds my solutions (written in Ruby) for [Advent of Code](http:
 | [Day 5](2016/day05) | [Day 10](2016/day10) | [Day 15](2016/day15) | [Day 20](2016/day20) | [Day 25](2016/day25) |
 
 ## [2015](2015)
+
 | :--- | :--- | :--- | :--- | :--- |
 | [Day 1](2015/day1) | [Day 6](2015/day6) | | | |
 | [Day 2](2015/day2) | [Day 7](2015/day7) | | | |
