@@ -16,7 +16,7 @@ class Part2
 
 	def process(row)
 		(row.length - 1).times do |index1|
-			((index1 + 1)..row.length - 1).each do |index2|
+			((index1 + 1)...row.length).each do |index2|
 				if row[index1] % row[index2] == 0
 					return row[index1] / row[index2]
 				end
