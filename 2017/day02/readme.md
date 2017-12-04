@@ -1,5 +1,5 @@
 # Advent of Code 2017
-## Day 1
+## Day 2
 
 ### Part 1
 For each row, determine the difference between the largest value and the smallest value; the checksum is the sum of all of these differences.
