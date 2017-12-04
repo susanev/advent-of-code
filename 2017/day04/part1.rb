@@ -13,17 +13,7 @@ class Part1
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
 				words = line.split(" ")
-				valid = 0
-				valid_words = []
-				words.each do |word|
-					if valid_words.index(word).nil?
-						valid_words.push(word)
-						valid += 1
-					else
-						break
-					end
-				end
-				if valid == words.length
+				if words.length == words.uniq.length
 					@valid += 1
 				end
 			end
