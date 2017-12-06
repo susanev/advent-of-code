@@ -8,8 +8,8 @@ class Part2
 		@configs = []
 		@banks = nil
 		processFile(file_name)
-		count_banks
-		count_banks_again
+		count_banks(false)
+		count_banks(true)
 		output
 	end
 
@@ -21,24 +21,26 @@ class Part2
 		end
 	end
 
-	def count_banks
-		while @configs.index(@banks.to_s) == nil
-			@configs.push(@banks.to_s)
+	def count_banks(reset)
+		if (reset)
+			@count = 0
+			@configs = []
+			repeat = @banks.to_s
 			count
-			@count += 1
+			while @configs.index(repeat) == nil
+				incr
+			end
+		else
+			while @configs.index(@banks.to_s) == nil
+				incr
+			end
 		end
 	end
 
-	def count_banks_again
-		@count = 0
-		@configs = []
-		repeat = @banks.to_s
+	def incr
+		@configs.push(@banks.to_s)
 		count
-		while @configs.index(repeat) == nil
-			@configs.push(@banks.to_s)
-			count
-			@count += 1
-		end
+		@count += 1
 	end
 
 	def count
