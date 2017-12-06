@@ -4,7 +4,6 @@
 
 class Part2
 	def initialize(file_name)
-		@alpha = "abcdefghijklmnopqrstuvwxyz"
 		@valid = 0
 		processFile(file_name)
 		output
@@ -17,7 +16,7 @@ class Part2
 				valid = 0
 				valid_words = []
 				words.each do |word|
-					count = count_letters(word)
+					count = word.split("").sort.join
 					if valid_words.index(count).nil?
 						valid_words.push(count)
 						valid += 1
@@ -30,14 +29,6 @@ class Part2
 				end
 			end
 		end
-	end
-
-	def count_letters(word)
-		counts = Array.new(26, 0)
-		word.split("").each do |letter|
-			counts[@alpha.index(letter)] += 1
-		end
-		return counts.join
 	end
 
 	def output
