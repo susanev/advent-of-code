@@ -26,10 +26,11 @@ class Part1
 			pos = @banks.index(@banks.max)
 			blocks = @banks[pos]
 			@banks[pos] = 0
+			incr = @banks.length / blocks
 			while blocks > 0
 				pos = (pos + 1) % @banks.length
-				@banks[pos] += 1
-				blocks -= 1
+				@banks[pos] += incr
+				blocks -= incr
 			end
 			@count += 1
 		end
