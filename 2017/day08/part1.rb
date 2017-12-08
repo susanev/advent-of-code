@@ -2,8 +2,6 @@
 # last edited 12/07/2017
 # advent of code 2017, day 8, part 1
 
-#not 5037
-
 class Part1
 	def initialize(file_name)
 		@registers = {}
