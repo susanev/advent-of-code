@@ -22,10 +22,10 @@ class Part1
 		set_reg(reg)
 		dir = nil
 		line.include?("inc") ? dir = "inc" : dir = "dec"
-		val = line[/[\-]*\d+/].to_i
+		val = line[/\-*\d+/].to_i
 		condition = line[line.index(" if ") + 4...line.length]
 		cond_reg = condition[/[a-z]+/]
-		cond_val = condition[/[\-]*\d+/].to_i
+		cond_val = condition[/\-*\d+/].to_i
 		set_reg(cond_reg)
 		if condition.include?("!=") && @registers[cond_reg] != cond_val ||
 				condition.include?("==") && @registers[cond_reg] == cond_val ||
