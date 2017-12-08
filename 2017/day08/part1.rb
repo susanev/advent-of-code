@@ -20,8 +20,7 @@ class Part1
 	def eval(line)
 		reg = line[/[a-z]+/]
 		set_reg(reg)
-		dir = nil
-		line.include?("inc") ? dir = "inc" : dir = "dec"
+		dir = line.include?("inc") ? "inc" : "dec"
 		val = line[/\-*\d+/].to_i
 		condition = line[line.index(" if ") + 4...line.length]
 		cond_reg = condition[/[a-z]+/]
