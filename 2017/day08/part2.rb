@@ -35,8 +35,8 @@ class Part2
 				condition.include?("<") && @registers[cond_reg] < cond_val ||
 				condition.include?(">") && @registers[cond_reg] > cond_val
 			dir == "inc" ? @registers[reg] += val : @registers[reg] -= val
+			@max = [@max, @registers[reg]].max
 		end
-		@max = [@max, @registers.values.max].max
 	end
 
 	def set_reg(reg)
