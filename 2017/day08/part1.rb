@@ -4,6 +4,7 @@
 
 class Part1
 	def initialize(file_name)
+		@regex_num = /\-*\d+/
 		@registers = {}
 		processFile(file_name)
 		output
@@ -21,10 +22,10 @@ class Part1
 		reg = line[/[a-z]+/]
 		set_reg(reg)
 		dir = line.include?("inc") ? "inc" : "dec"
-		val = line[/\-*\d+/].to_i
+		val = line[@regex_num].to_i
 		condition = line[line.index(" if ") + 4...line.length]
 		cond_reg = condition[/[a-z]+/]
-		cond_val = condition[/\-*\d+/].to_i
+		cond_val = condition[@regex_num].to_i
 		set_reg(cond_reg)
 		if condition.include?("!=") && @registers[cond_reg] != cond_val ||
 				condition.include?("==") && @registers[cond_reg] == cond_val ||
