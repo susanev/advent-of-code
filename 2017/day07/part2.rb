@@ -1,5 +1,5 @@
 # susan evans
-# last edited 12/08/2017
+# last edited 12/09/2017
 # advent of code 2017, day 7, part 2
 
 # its a mess!!
@@ -38,26 +38,24 @@ class Part2
 	end
 
 	def reduce
-		while @programs.length > 1
+		while @programs.length > 0
 			@programs.each_with_index do |program, prog_index|
 				program[:children].each_with_index do |child, child_index|
 					if @end_values[child[:item_name]] != nil
 						@programs[prog_index][:children][child_index][:item_val] = @end_values[child[:item_name]]
-						puts "programs: #{@programs}"
-						puts "---\n"
 					end
 				end
 				child_values = all_integers(program[:children])
-				if child_values.all? { |val| val.is_a? Integer }
+				if child_values.index(nil).nil?
 					uniq_vals = child_values.uniq
 					if uniq_vals.length > 1
-						if child_values.count(uniq_vals[0]) == 1
-							return uniq_vals[1] - uniq_vals[0]
+						if child_values.count(uniq_vals[0]) == 1							
+							return find_name(program[:children], uniq_vals[0]) + uniq_vals[1] - uniq_vals[0]
 						else
-							return uniq_vals[0] - uniq_vals[1]
+							return find_name(program[:children], uniq_vals[1]) + uniq_vals[0] - uniq_vals[1]
 						end
 					end
-					sum = vals.inject(0, :+) + program[:val]
+					sum = child_values.inject(0, :+) + program[:val]
 					@end_values[program[:prog_name]] = sum
 					@programs.delete(program)
 				end
@@ -65,10 +63,18 @@ class Part2
 		end
 	end
 
+	def find_name(children, val)
+		children.each do |child|
+			if child[:item_val] == val
+				return @orig[child[:item_name]]
+			end
+		end
+	end
+
 	def all_integers(children)
 		children_vals = []
-		children.each do |item, val|
-			children.push(val)
+		children.each do |child|
+			children_vals.push(child[:item_val])
 		end
 		return children_vals
 	end
