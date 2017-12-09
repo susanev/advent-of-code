@@ -2,8 +2,6 @@
 # last edited 12/09/2017
 # advent of code 2017, day 7, part 2
 
-# its a mess!!
-
 class Part2
 	def initialize(file_name)
 		@orig = {}
@@ -40,25 +38,31 @@ class Part2
 	def reduce
 		while @programs.length > 0
 			@programs.each_with_index do |program, prog_index|
-				program[:children].each_with_index do |child, child_index|
-					if @end_values[child[:item_name]] != nil
-						@programs[prog_index][:children][child_index][:item_val] = @end_values[child[:item_name]]
-					end
-				end
+				replace_programs(program, prog_index)
 				child_values = all_integers(program[:children])
 				if child_values.index(nil).nil?
 					uniq_vals = child_values.uniq
 					if uniq_vals.length > 1
-						if child_values.count(uniq_vals[0]) == 1							
-							return find_name(program[:children], uniq_vals[0]) + uniq_vals[1] - uniq_vals[0]
-						else
-							return find_name(program[:children], uniq_vals[1]) + uniq_vals[0] - uniq_vals[1]
+						return child_values.count(uniq_vals[0]) == 1 ?					
+							return find_name(program[:children], uniq_vals[0]) +
+									uniq_vals[1] - uniq_vals[0] :
+							return find_name(program[:children], uniq_vals[1]) +
+									uniq_vals[0] - uniq_vals[1]
 						end
 					end
-					sum = child_values.inject(0, :+) + program[:val]
-					@end_values[program[:prog_name]] = sum
+					@end_values[program[:prog_name]] = child_values.inject(0, :+) +
+							program[:val]
 					@programs.delete(program)
 				end
+			end
+		end
+	end
+
+	def replace_programs(program, prog_index)
+		program[:children].each_with_index do |child, child_index|
+			if @end_values[child[:item_name]] != nil
+				@programs[prog_index][:children][child_index][:item_val] =
+						@end_values[child[:item_name]]
 			end
 		end
 	end
@@ -77,15 +81,6 @@ class Part2
 			children_vals.push(child[:item_val])
 		end
 		return children_vals
-	end
-
-	def children_reduced?
-		@programs.each do |program|
-			if program[:children] != nil && !program[:children].flatten.all? { |val| val.is_a? Integer }
-				return false
-			end
-		end
-		return true
 	end
 end
 
