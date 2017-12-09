@@ -1,7 +1,6 @@
 # susan evans
 # last edited 12/06/2017
 # advent of code 2017, day 7, part 1
-require 'tree'  
 
 class Part1
 	def initialize(file_name)
