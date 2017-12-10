@@ -23,7 +23,6 @@ class Part1
 		return val.to_i.to_s == val
 	end
 
-
 	def output
 		puts "#{@sum}"
 	end
