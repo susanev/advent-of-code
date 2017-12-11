@@ -4,7 +4,7 @@ _This repository holds my solutions (written in Ruby) for [Advent of Code](http:
 
 | [2017](2017) | | | | |
 | :--- | :--- | :--- | :--- | :--- |
-| [Day 1](2017/day01) | [Day 6](2017/day06) | | | |
+| [Day 1](2017/day01) | [Day 6](2017/day06) | [Day 11](2017/day11) | | |
 | [Day 2](2017/day02) | [Day 7](2017/day07) | | | |
 | [Day 3](2017/day03) | [Day 8](2017/day08) | | | |
 | [Day 4](2017/day04) | [Day 9](2017/day09) | | | |
