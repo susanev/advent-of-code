@@ -25,15 +25,13 @@ class Part2
 	end
 
 	def count_programs
-		n = 0
-		while n < 2000
+		2000.times do |n|
 			if !@all_groups.include?(n)
 				@connections = [n]
 				process(n)
 				@all_groups.push(*@connections)
 				@count += 1
 			end
-			n += 1
 		end
 	end
 
