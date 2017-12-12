@@ -35,14 +35,9 @@ class Part2
 
 	def calc_dif_pairs(counts)
 		@dif_pairs.each do |pair|
-			diff = (counts[pair[0]] - counts[pair[1]]).abs
-			if counts[pair[0]] > counts[pair[1]]
-				counts[pair[0]] = diff
-				counts[pair[1]] = 0
-			else
-				counts[pair[1]] = diff
-				counts[pair[0]] = 0
-			end
+			diff = @counts[pair[0]] - @counts[pair[1]]
+			@counts[pair[0]] = [diff, 0].max
+			@counts[pair[1]] = [-diff, 0].max
 		end
 		return counts
 	end
