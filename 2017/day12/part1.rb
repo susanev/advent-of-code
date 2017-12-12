@@ -31,13 +31,16 @@ class Part1
 				if prog == n
 					to.each do |val|
 						@connections.push(val)
+						@programs.delete(prog)
 					end
 				elsif to.include?(n)
 					@connections.push(prog)
+					@programs.delete(prog)
 				else
 					to.each do |val|
 						if @connections.include?(val)
 							@connections.push(prog)
+							@programs.delete(prog)
 						end
 					end
 				end
