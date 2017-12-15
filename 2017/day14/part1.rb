@@ -2,8 +2,6 @@
 # last edited 12/13/2017
 # advent of code 2017, day 14, part 1
 
-#85558
-
 class Part1
 	def initialize(file_name)
 		val = -1
