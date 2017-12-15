@@ -9,7 +9,7 @@
 class Part1
 	def initialize(file_name)
 		val = -1
-		@width = 4
+		@width = 128
 		@grid = []
 		@list = Array.new(256) {val += 1}
 		@lengths = []
@@ -17,15 +17,12 @@ class Part1
 		@skip_size = 0
 		@dense = []
 		@used = 0
+		@programs = {}
 		processFile(file_name)
 		@output = ""
-		@grid = "##...#.##.###...".split("")
+		# @grid = "##.#.####".split("")	
+		@singles = 0
 		assign
-		@all_groups = []
-		@programs = {}
-		@count = 0
-		processString
-		count_programs
 		output
 		
 	end
@@ -137,76 +134,47 @@ class Part1
 				if (item_index + @width) < @width * @width && @grid[item_index + @width] == "#"
 					connections.push(item_index + @width)
 				end
-			end
-			if connections.length > 0
-				@output += item_index.to_s + " <-> " + connections.join(", ") + "\n"
-			end
-		end
-		puts @output
-	end
-
-# 0 <-> 412, 480, 777, 1453
-# 1 <-> 132, 1209
-# 2 <-> 1614
-# 3 <-> 3
-# 4 <-> 1146
-# 5 <-> 5, 528
-# 6 <-> 107, 136, 366, 1148, 1875
-# 7 <-> 452, 701, 1975
-# 8 <-> 164
-# 9 <-> 912, 920
-
-	def processString
-		@output.each_line do |line|
-			line.chomp!
-			prog = line[/\d+\s/].to_i
-			arrow_index = line.index("<->")
-			to = line[arrow_index + 4..line.length].split(",").map(&:to_i)
-			@programs[prog] = to
-		end
-	end
-
-	def count_programs
-		12.times do |n|
-			if !@all_groups.include?(n)
-				@connections = [n]
-				process2(n)
-				@all_groups.push(*@connections)
-				@count += 1
-			end
-			print @programs
-		end
-	end
-
-	def process2(n)
-		prev = nil
-		while prev != @connections.sort.to_s
-			prev = @connections.clone.sort.to_s
-			@programs.clone.each do |prog, to|
-				if prog == n
-					to.each do |val|
-						@connections.push(val)
-						@programs.delete(prog)
-					end
-				elsif to.include?(n)
-					@connections.push(prog)
-					@programs.delete(prog)
-				else
-					to.each do |val|
-						if @connections.include?(val)
-							@connections.push(prog)
-							@programs.delete(prog)
-						end
-					end
+				if !update(item_index, connections)
+					@programs[item_index] = connections
 				end
 			end
-			@connections.uniq!
+		end
+	end
+
+	def update(val, connections)
+		added = false
+		@programs.each do |prog, to|
+			if to.include?(val) || !(to & connections).empty?
+				@programs[prog].push(connections)
+				@programs[prog].flatten!
+				@programs[prog].uniq!
+				remove_dups(prog, val)
+				return true
+			end
+		end
+		return false
+	end
+
+	def remove_dups(prog, val)
+		remove_indexs = []
+		@programs.each do |prog2, to2|
+			if prog != prog2 && to2.include?(val)
+				@programs[prog].push(to2)
+				@programs[prog].push(prog2)
+				@programs[prog].flatten!
+				@programs[prog].uniq!
+				remove_indexs.push(prog2)
+			end
+		end
+		remove_indexs.each do |prog|
+			@programs.delete(prog)
 		end
 	end
 
 	def output
-		puts "#{@count}"
+		puts @programs.length 
 	end
+
 end
 
 Part1.new("input.txt")
