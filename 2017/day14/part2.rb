@@ -1,12 +1,8 @@
-
-
 # susan evans
-# last edited 12/13/2017
-# advent of code 2017, day 14, part 1
+# last edited 12/14/2017
+# advent of code 2017, day 14, part 2
 
-#85558
-
-class Part1
+class Part2
 	def initialize(file_name)
 		val = -1
 		@width = 128
@@ -16,12 +12,8 @@ class Part1
 		@current = 0
 		@skip_size = 0
 		@dense = []
-		@used = 0
 		@programs = {}
 		processFile(file_name)
-		@output = ""
-		# @grid = "##.#.####".split("")	
-		@singles = 0
 		assign
 		output
 		
@@ -177,5 +169,4 @@ class Part1
 
 end
 
-Part1.new("input.txt")
-
+Part2.new("input.txt")
