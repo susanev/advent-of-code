@@ -14,9 +14,7 @@ class Part1
 
 	def insert
 		2017.times do
-			@steps.times do
-				@pos = (@pos + 1) % @buffer.length
-			end
+			@pos = (@pos + @steps) % @buffer.length
 			@pos += 1
 			@buffer.insert(@pos, @count)
 			@count += 1
