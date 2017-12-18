@@ -81,7 +81,7 @@ class Part1
 
 	def mod(x, y)
 		if @registers[x].nil?
-			@registes[x] = 0
+			@registers[x] = 0
 		else
 			@registers[x] %= y
 		end

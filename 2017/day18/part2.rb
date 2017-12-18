@@ -4,7 +4,7 @@
 
 class Part2
 	def initialize(file_name)
-		@registers = [{"p" => 0}, {"p" => 1}]
+		@registers = [{p: 0}, {p: 1}]
 		@instructions = [[], []]
 		@messages = [[], []]
 		@pos = [0, 0]
@@ -38,15 +38,15 @@ class Part2
 			if line.include?("snd")
 				snd(first)
 			elsif line.include?("rcv")
-				rcv(first)
+				rcv(first.to_sym)
 			elsif line.include?("set")
-				set(first, second)
+				set(first.to_sym, second)
 			elsif line.include?("add")
-				add(first, second)
+				add(first.to_sym, second)
 			elsif line.include?("mul")
-				mul(first, second)
+				mul(first.to_sym, second)
 			elsif line.include?("mod")
-				mod(first, second)
+				mod(first.to_sym, second)
 			elsif line.include?("jgz")
 				jgz(first, second)
 			end
@@ -58,7 +58,7 @@ class Part2
 		if val.to_i.to_s == val
 			return val.to_i
 		else
-			return @registers[@program][val]
+			return @registers[@program][val.to_sym]
 		end
 	end
 
@@ -71,6 +71,16 @@ class Part2
 			@messages[0].unshift(val)
 		end
 		@pos[@program] += 1
+	end
+
+	def rcv(x)
+		if @messages[@program].empty?
+			@waiting[@program] = true
+		else
+			@registers[@program][x] = @messages[@program].pop
+			@waiting[@program] = false
+			@pos[@program] += 1
+		end
 	end
 
 	def set(x, y)
@@ -103,16 +113,6 @@ class Part2
 			@registers[@program][x] %= y
 		end
 		@pos[@program] += 1
-	end
-
-	def rcv(x)
-		if @messages[@program].empty?
-			@waiting[@program] = true
-		else
-			@registers[@program][x] = @messages[@program].pop
-			@waiting[@program] = false
-			@pos[@program] += 1
-		end
 	end
 
 	def jgz(x, y)
