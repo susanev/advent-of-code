@@ -5,7 +5,7 @@
 class Part2
 	def initialize(file_name)
 		@registers = [{p: 0}, {p: 1}]
-		@instructions = [[], []]
+		@instructions = []
 		@messages = [[], []]
 		@pos = [0, 0]
 		@program = 0
@@ -20,16 +20,15 @@ class Part2
 		line_index = 0
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
-				@instructions[0].push(line)
-				@instructions[1].push(line)
+				@instructions.push(line)
 			end
 		end
 	end
 
 	def compelte_instructions
 		while !@waiting.all? &&
-					(@pos[0] != @instructions[0].length || @pos[1] != @instructions[1].length)
-			line = @instructions[@program][@pos[@program]]
+					(@pos[0] != @instructions.length || @pos[1] != @instructions.length)
+			line = @instructions[@pos[@program]]
 			numbers = line[4...line.length].split(" ")
 			first = numbers[0]
 			if numbers.length > 1
