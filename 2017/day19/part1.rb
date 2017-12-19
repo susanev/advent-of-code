@@ -35,20 +35,12 @@ class Part1
 
 	def find_path
 		while !@path.join.include?("I")
-			if @y_pos + 1 >= @grid.length || @grid[@y_pos + 1][@x_pos] == " "
-				up_down(-1)
-				@dir = :south
-			else
+			@y_pos + 1 >= @grid.length || @grid[@y_pos + 1][@x_pos] == " " ?
+				up_down(-1) :
 				up_down(1)
-				@dir = :north
-			end
-			if @x_pos + 1 >= @grid[@y_pos].length || @grid[@y_pos][@x_pos + 1] == " "
-				left_right(-1)
-				@dir = :west
-			else
+			@x_pos + 1 >= @grid[@y_pos].length || @grid[@y_pos][@x_pos + 1] == " " ?
+				left_right(-1) :
 				left_right(1)
-				@dir = :east
-			end
 		end
 	end
 
