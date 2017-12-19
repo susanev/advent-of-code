@@ -34,7 +34,7 @@ class Part1
 	end
 
 	def find_path
-		while !@path.join.include?("I")
+		while !at_end
 			@y_pos + 1 >= @grid.length || @grid[@y_pos + 1][@x_pos] == " " ?
 				up_down(-1) :
 				up_down(1)
@@ -42,6 +42,27 @@ class Part1
 				left_right(-1) :
 				left_right(1)
 		end
+	end
+
+	def at_end
+		return @grid[@y_pos][@x_pos] == " " && surrounding_spaces == 3
+	end
+
+	def surrounding_spaces
+		spaces = 0
+		if @y_pos + 1 < @grid.length && @grid[@y_pos + 1][@x_pos] == " "
+			spaces += 1
+		end
+		if @y_pos - 1 > -1 && @grid[@y_pos - 1][@x_pos] == " "
+			spaces += 1
+		end
+		if @x_pos + 1 < @grid[@y_pos].length && @grid[@y_pos][@x_pos + 1] == " "
+			spaces += 1
+		end
+		if @x_pos - 1 > -1 && @grid[@y_pos][@x_pos - 1] == " "
+			spaces += 1
+		end
+		return spaces
 	end
 
 	def up_down(dir)
