@@ -46,7 +46,7 @@ class Part1
 
 	def up_down(dir)
 		while @y_pos + dir < @grid.length && 
-				("|+-".include?(@grid[@y_pos + dir][@x_pos]) || is_letter(@grid[@y_pos + dir][@x_pos])) 
+				@grid[@y_pos + dir][@x_pos] != " "
 			if is_letter(@grid[@y_pos + dir][@x_pos])
 				@path.push(@grid[@y_pos + dir][@x_pos])
 				@grid[@y_pos + dir][@x_pos] = " "
@@ -57,7 +57,7 @@ class Part1
 
 	def left_right(dir)
 		while @x_pos + dir < @grid[@y_pos].length && 
-				("|+-".include?(@grid[@y_pos][@x_pos + dir]) || is_letter(@grid[@y_pos][@x_pos + dir]))
+				@grid[@y_pos][@x_pos + dir] != " "
 			if is_letter(@grid[@y_pos][@x_pos + dir])
 				@path.push(@grid[@y_pos][@x_pos + dir])
 				@grid[@y_pos][@x_pos + dir] = " "
