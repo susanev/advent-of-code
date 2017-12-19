@@ -49,16 +49,16 @@ class Part1
 
 	def surrounding_spaces
 		spaces = 0
-		if @y_pos + 1 < @grid.length && @grid[@y_pos + 1][@x_pos] == " "
+		if @y_pos + 1 >= @grid.length || @grid[@y_pos + 1][@x_pos] == " "
 			spaces += 1
 		end
-		if @y_pos - 1 > -1 && @grid[@y_pos - 1][@x_pos] == " "
+		if @y_pos - 1 < 0 || @grid[@y_pos - 1][@x_pos] == " "
 			spaces += 1
 		end
-		if @x_pos + 1 < @grid[@y_pos].length && @grid[@y_pos][@x_pos + 1] == " "
+		if @x_pos + 1 >= @grid[@y_pos].length || @grid[@y_pos][@x_pos + 1] == " "
 			spaces += 1
 		end
-		if @x_pos - 1 > -1 && @grid[@y_pos][@x_pos - 1] == " "
+		if @x_pos - 1 < 0 || @grid[@y_pos][@x_pos - 1] == " "
 			spaces += 1
 		end
 		return spaces
