@@ -13,7 +13,6 @@ class Part2
 		10000000.times do 
 			move
 		end
-		puts @count
 	end
 
 	def processFile(file_name)
@@ -65,7 +64,7 @@ class Part2
 	end
 
 	def output
-		puts "#{}"
+		puts "#{@count}"
 	end
 end
 
