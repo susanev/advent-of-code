@@ -16,16 +16,6 @@ class Part1
 		puts @count
 	end
 
-	def print_grid
-		@grid.each_with_index do |item, item_index|
-			if item_index % @width == 0
-				puts "\n"
-			end
-			print item
-		end
-		puts "\n"
-	end
-
 	def processFile(file_name)
 		xpos = 0
 		ypos = 0
