@@ -1,15 +1,14 @@
 # susan evans
-# last edited 12/21/2017
+# last edited 12/22/2017
 # advent of code 2017, day 22, part 1
 
 class Part1
 	def initialize(file_name)
 		@dirs = [:north, :east, :south, :west]
-		@width = 71#25
-		@pos = [35, 35]#[12, 12]
+		@pos = [12, 12]
 		@dir = :north
-		@grid = []
 		@count = 0
+		@grid = []
 		processFile(file_name)
 		10000.times do
 			move
@@ -28,16 +27,20 @@ class Part1
 	end
 
 	def processFile(file_name)
-		31.times do
-			@grid += Array.new(71, ".")
-		end
+		xpos = 0
+		ypos = 0
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
-				@grid += Array.new(31, ".") + line.chomp.delete(" ").split("") + Array.new(31, ".")
+				line = line.chomp.delete(" ").split("")
+				line.each do |item|
+					if item == "#"
+						@grid.push({x: xpos, y: ypos})
+					end
+					xpos += 1
+				end
+				ypos += 1
+				xpos = 0
 			end
-		end
-		31.times do
-			@grid += Array.new(71, ".")
 		end
 	end
 
@@ -55,13 +58,14 @@ class Part1
 	end
 
 	def infect
-		if @grid[@pos[0] + @pos[1] * @width] == "."
+		curr = @grid.index({x: @pos[0], y: @pos[1]})
+		if curr.nil?
 			@dir = @dirs[(@dirs.index(@dir) - 1) % @dirs.length]
-			@grid[@pos[0] + @pos[1] * @width] = "#"
+			@grid.push({x: @pos[0], y: @pos[1]})
 			@count += 1
 		else
 			@dir = @dirs[(@dirs.index(@dir) + 1) % @dirs.length]
-			@grid[@pos[0] + @pos[1] * @width] = "."
+			@grid.delete_at(curr)
 		end
 	end
 
