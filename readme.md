@@ -2,6 +2,10 @@
 _This repository holds my solutions (written in Ruby) for [Advent of Code](http://adventofcode.com)_
 \*: Not yet finished
 
+| [2018](2018) | | | | |
+| :--- | :--- | :--- | :--- | :--- |
+| [Day 1](2018/day01) |
+
 | [2017](2017) | | | | |
 | :--- | :--- | :--- | :--- | :--- |
 | [Day 1](2017/day01) | [Day 6](2017/day06) | [Day 11](2017/day11) | [Day 16](2017/day16) | |
