@@ -1,6 +1,5 @@
 class Part2
 	def initialize(file_name)
-		@sum = 0
 		@lines = []
 		@answers = {}
 		processFile(file_name)
@@ -15,15 +14,16 @@ class Part2
 	end
 
 	def findDup
-		index = 0
+		answers_index = 0
+		sum = 0
 		while @dup == nil
-			@sum += @lines[index]
-			if @answers[@sum]
-				return @sum
+			sum += @lines[answers_index]
+			if @answers[sum]
+				return sum
 			else
-				@answers[@sum] = true
+				@answers[sum] = true
 			end
-			index = (index + 1) % @lines.length
+			answers_index = (answers_index + 1) % @lines.length
 		end
 	end
 
