@@ -10,9 +10,7 @@ class Part2
 
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
-			f.each_line do |line|
-				@lines.push(line.to_i)
-			end
+			@lines = f.read.split("\n").map(&:to_i)
 		end
 	end
 
