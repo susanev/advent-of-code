@@ -20,8 +20,8 @@ class Part2
 				return sum
 			else
 				@answers[sum] = true
+				answers_index = (answers_index + 1) % @lines.length
 			end
-			answers_index = (answers_index + 1) % @lines.length
 		end
 	end
 
