@@ -8,9 +8,7 @@ class Part2
 	end
 
 	def processFile(file_name)
-		File.open(file_name, "r") do |f|
-			@lines = f.readlines.map(&:to_i)
-		end
+		@lines = File.open(file_name, "r").readlines.map(&:to_i)
 	end
 
 	def findDup
