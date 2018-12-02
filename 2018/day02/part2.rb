@@ -1,7 +1,5 @@
 class Part2
 	def initialize(file_name)
-		two = 0
-		three = 0
 		@lines = []
 		processFile(file_name)
 		output(exactlyOne)
