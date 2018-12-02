@@ -7,7 +7,7 @@ class Part1
 
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
-			@sum = f.read.split("\n").map(&:to_i).reduce(:+)
+			@sum = f.readlines.map(&:to_i).reduce(:+)
 		end
 	end
 

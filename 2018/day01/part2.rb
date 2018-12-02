@@ -9,7 +9,7 @@ class Part2
 
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
-			@lines = f.read.split("\n").map(&:to_i)
+			@lines = f.readlines.map(&:to_i)
 		end
 	end
 
