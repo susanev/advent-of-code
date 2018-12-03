@@ -8,8 +8,7 @@ class Part1
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
-				process(line.scan(/\d*/).reject(&:empty?).
-						map(&:to_i))
+				process(line.scan(/\d+/).map(&:to_i))
 			end
 		end
 	end
