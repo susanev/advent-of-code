@@ -11,11 +11,8 @@ class Part1
 	end
 
 	def processFile(file_name)
-		File.open(file_name, "r") do |f|
-			f.each_line do |line|
-				@data = line.strip.split("")
-			end
-		end
+		@data= File.open(file_name, "r").
+				readlines[0].split("")
 	end
 
 	def process

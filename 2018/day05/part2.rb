@@ -29,15 +29,15 @@ class Part2
 	def process(data)
 		prev_data = []
 		while !prev_data.eql?(data)
+			i = 0
 			prev_data = data.clone
-			for i in 0...data.length - 2
-				if data[i] && data[i+1]
-					if data[i].downcase.eql?(data[i+1].downcase) &&
-								!data[i].eql?(data[i+1])
-						data.delete_at(i)
-						data.delete_at(i)
-					end
+			while i < data.length - 1
+				if data[i].downcase.eql?(data[i+1].downcase) &&
+						!data[i].eql?(data[i+1])
+					data.delete_at(i)
+					data.delete_at(i)
 				end
+				i += 1
 			end
 		end
 		return data.length
