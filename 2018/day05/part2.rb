@@ -1,7 +1,3 @@
-# susan evans
-# last edited 12/04/2018
-# advent of code 2018, day 5, part 2
-
 class Part2
 	def initialize(file_name)
 		@data = []
@@ -27,13 +23,12 @@ class Part2
 	end
 
 	def process(data)
-		prev_data = []
-		while !prev_data.eql?(data)
+		prev_length = 0
+		while prev_length != data.length
 			i = 0
-			prev_data = data.clone
+			prev_length = data.length
 			while i < data.length - 1
-				if data[i].downcase.eql?(data[i+1].downcase) &&
-						!data[i].eql?(data[i+1])
+				if (data[i].ord - data[i + 1].ord).abs - 32 == 0
 					data.delete_at(i)
 					data.delete_at(i)
 				end
