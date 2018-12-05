@@ -8,7 +8,7 @@ _This repository holds my solutions (written in Ruby) for [Advent of Code](http:
 | [Day 2](2018/day02) | | | | |
 | [Day 3](2018/day03) | | | | |
 |  | | | | |
-| [Day 4](2018/day05) | | | | |
+| [Day 5](2018/day05) | | | | |
 
 | [2017](2017) | | | | |
 | :--- | :--- | :--- | :--- | :--- |
