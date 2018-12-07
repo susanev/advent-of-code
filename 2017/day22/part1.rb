@@ -60,7 +60,19 @@ class Part1
 	end
 
 	def output
-		puts "#{@count}"
+		grid = @grid.sort
+		open('output.txt', 'w') do |f|
+			f.puts "\n\n"
+			new_line = grid[0][0]
+			grid.each do |pos|
+				if pos[0] != new_line
+					f.puts "\n"
+					new_line = pos[0]
+				end
+				f.print @grid[pos]
+			end
+		end
+		#puts "#{@count}"
 	end
 end
 

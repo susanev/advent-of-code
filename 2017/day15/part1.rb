@@ -10,11 +10,9 @@ class Part1
 		@currA = 679
 		@currB = 771
 		@total = 0
-		40000000.times do |n|
-			puts n
+		40000000.times do
 			count
-		end
-			
+		end			
 		output
 	end
 

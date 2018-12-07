@@ -2,39 +2,39 @@
 # last edited 12/20/2017
 # advent of code 2017, day 21, part 1
 
+#39, 51, 137
+
 class Part1
 	def initialize(file_name)
-		@matrix = [".", "#", ".", ".", ".", "#", "#", "#", "#"]
+		@matrix = ".#...####"
 		@rules = {}
 		processFile(file_name)
+
+		# iteration 1
 		arr = four_split(@rules[@matrix])
-		arr.each_with_index do |item, item_index|
-			arr[item_index] = @rules[item]
-		end
-		puts arr.flatten.count("#")
 
+		# iteration 2 + 3
 		arr.each_with_index do |item, item_index|
-			arr[item_index] = four_split(@rules[item])
+			arr[item_index] = @rules[@rules[item]]
 		end
-		puts arr.flatten.count("#")
 
+		# iteration 4
+		new_arr = []
 		arr.each_with_index do |item, item_index|
-			item.each_with_index do |item2, item2_index|
-				arr[item_index][item2_index] = four_split(@rules[item2])
+			hold = four_split(item)
+			hold.each do |hold_item|
+				new_arr.push(@rules[hold_item])
 			end
 		end
-		puts arr.flatten.count("#")
 
-		arr.each_with_index do |item, item_index|
-			item.each_with_index do |item2, item2_index|
-				item2.each_with_index do |item3, item3_index|
-					arr[item_index][item2_index][item3_index] = @rules[item3]
-				end
-			end
+		# iteration 5
+		new_arr.each_with_index do |item, item_index|
+			new_arr[item_index] = @rules[item]
 		end
-		print arr
-		puts arr.flatten.count("#")
-		output
+
+		print new_arr
+
+		puts new_arr.join.count("#")
 	end
 
 	def processFile(file_name)
@@ -45,26 +45,24 @@ class Part1
 				find = line[0].split("")
 				if find.length == 4
 					perms = two_by_rotations(find)
-					perms.each do |perm|
-						@rules[perm] = line[1].split("")
-					end
 				else
 					perms = three_by_rotations(find)
-					perms.each do |perm|
-						@rules[perm] = line[1].split("")
-					end
+				end
+				perms.each do |perm|
+					@rules[perm.join] = line[1]
 				end
 			end
 		end
 	end
 
 	def four_split(arr)
+		arr = arr.split("")
 		split = []
-		split.push([arr[0], arr[1], arr[4], arr[5]])
-		split.push([arr[2], arr[3], arr[6], arr[7]])
-		split.push([arr[8], arr[9], arr[12], arr[13]])
-		split.push([arr[10], arr[11], arr[14], arr[15]])
-		return split
+		split.push([arr[0], arr[1], arr[4], arr[5]].join)
+		split.push([arr[2], arr[3], arr[6], arr[7]].join)
+		split.push([arr[8], arr[9], arr[12], arr[13]].join)
+		split.push([arr[10], arr[11], arr[14], arr[15]].join)
+		return split.clone
 	end
 
 	def two_by_rotations(arr)
@@ -88,7 +86,6 @@ class Part1
 		rotations.push([arr[8], arr[5], arr[2], arr[7], arr[4], arr[1], arr[6], arr[3], arr[0]])
 		rotations.push([arr[6], arr[7], arr[8], arr[3], arr[4], arr[5], arr[0], arr[1], arr[2]])
 		rotations.push([arr[0], arr[3], arr[6], arr[1], arr[4], arr[7], arr[2], arr[5], arr[8]])
-		rotations.push([arr[2], arr[1], arr[0], arr[5], arr[4], arr[3], arr[8], arr[7], arr[6]])
 		return rotations.uniq
 	end
 
