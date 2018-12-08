@@ -18,20 +18,17 @@ class Part2
 	def initialize(file_name)
 		@data = []
 		@sum = 0
-		processFile(file_name)
 		@pos = 2
+		processFile(file_name)
 		@root = Node.new(@data[0], @data[1])
 		build_tree(@root)
-		start_count
+		find_root_sum
 		output
 	end
 
 	def processFile(file_name)
-		File.open(file_name, "r") do |f|
-			f.each_line do |line|
-				@data = line.split(" ").map(&:to_i)
-			end
-		end
+		@data = File.open(file_name, "r").
+				readlines[0].split(" ").map(&:to_i)
 	end
 
 	def build_tree(node)
@@ -44,28 +41,28 @@ class Part2
 			build_tree(child_node)
 		end
 		sum = 0
-		for i in 0...node.metadata_cnt
+		node.metadata_cnt.times do
 			node.metadata.push(@data[@pos])
 			@pos += 1
 		end
 	end
 
-	def start_count
-		@root.metadata.each do |item|
-			if item <= @root.children.length
-				@sum += find_sum(@root.children[item-1])
+	def find_root_sum
+		@root.metadata.each do |child|
+			if child <= @root.children.length
+				@sum += find_node_sum(@root.children[child - 1])
 			end
 		end
 	end
 
-	def find_sum(node)
+	def find_node_sum(node)
 		if node.children.length == 0
 			return node.metadata.reduce(&:+)
 		else
 			sum = 0
 			node.metadata.each do |ind|
 				if ind <= node.children.length
-					sum += find_sum(node.children[ind - 1])
+					sum += find_node_sum(node.children[ind - 1])
 				end
 			end
 			return sum
