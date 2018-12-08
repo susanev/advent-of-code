@@ -1,50 +1,48 @@
 # susan evans
-# last edited 12/07/2017
-# advent of code 2017, day 8, part 1
+# last edited 12/07/2018
+# advent of code 2018, day 8, part 1
+
+class Node
+	attr_accessor :children, :metadata
+
+	def initialize(children, metadata)
+		@children = children
+		@metadata = metadata
+	end
+end
 
 class Part1
 	def initialize(file_name)
-		@regex_num = /\-*\d+/
-		@registers = {}
+		@data = []
+		@sum = 0
 		processFile(file_name)
+		@pos = 2
+		build_tree(Node.new(@data[0], @data[1]))
 		output
 	end
 
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
-				eval(line)
+				@data = line.split(" ").map(&:to_i)
 			end
 		end
 	end
 
-	def eval(line)
-		reg = line[/[a-z]+/]
-		set_reg(reg)
-		dir = line.include?("inc") ? "inc" : "dec"
-		val = line[@regex_num].to_i
-		condition = line[line.index(" if ") + 4...line.length]
-		cond_reg = condition[/[a-z]+/]
-		cond_val = condition[@regex_num].to_i
-		set_reg(cond_reg)
-		if condition.include?("!=") && @registers[cond_reg] != cond_val ||
-				condition.include?("==") && @registers[cond_reg] == cond_val ||
-				condition.include?("<=") && @registers[cond_reg] <= cond_val ||
-				condition.include?(">=") && @registers[cond_reg] >= cond_val ||
-				condition.include?("<") && @registers[cond_reg] < cond_val ||
-				condition.include?(">") && @registers[cond_reg] > cond_val
-			dir == "inc" ? @registers[reg] += val : @registers[reg] -= val
+	def build_tree(node)
+		while node.children != 0
+			@pos += 2
+			node.children -= 1
+			build_tree(Node.new(@data[@pos - 2], @data[@pos - 1]))
 		end
-	end
-
-	def set_reg(reg)
-		if @registers[reg].nil?
-			@registers[reg] = 0
+		for i in 0...node.metadata
+			@sum += @data[@pos]
+			@pos += 1
 		end
 	end
 
 	def output
-		puts "#{@registers.values.max}"
+		puts "#{@sum}"
 	end
 end
 

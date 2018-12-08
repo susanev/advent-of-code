@@ -1,52 +1,79 @@
 # susan evans
-# last edited 12/07/2017
-# advent of code 2017, day 8, part 2
+# last edited 12/07/2018
+# advent of code 2018, day 8, part 2
+
+class Node
+	attr_accessor :children_cnt, :metadata_cnt, :value,
+		:children, :metadata
+
+	def initialize(children, metadata)
+		@children_cnt = children
+		@metadata_cnt = metadata
+		@children = []
+		@metadata = []
+	end
+end
 
 class Part2
 	def initialize(file_name)
-		@regex_num = /\-*\d+/
-		@registers = {}
-		@max = 0
+		@data = []
+		@sum = 0
 		processFile(file_name)
+		@pos = 2
+		@root = Node.new(@data[0], @data[1])
+		build_tree(@root)
+		start_count
 		output
 	end
 
 	def processFile(file_name)
 		File.open(file_name, "r") do |f|
 			f.each_line do |line|
-				eval(line)
+				@data = line.split(" ").map(&:to_i)
 			end
 		end
 	end
 
-	def eval(line)
-		reg = line[/[a-z]+/]
-		set_reg(reg)
-		dir = line.include?("inc") ? "inc" : "dec"
-		val = line[@regex_num].to_i
-		condition = line[line.index(" if ") + 4...line.length]
-		cond_reg = condition[/[a-z]+/]
-		cond_val = condition[@regex_num].to_i
-		set_reg(cond_reg)
-		if condition.include?("!=") && @registers[cond_reg] != cond_val ||
-				condition.include?("==") && @registers[cond_reg] == cond_val ||
-				condition.include?("<=") && @registers[cond_reg] <= cond_val ||
-				condition.include?(">=") && @registers[cond_reg] >= cond_val ||
-				condition.include?("<") && @registers[cond_reg] < cond_val ||
-				condition.include?(">") && @registers[cond_reg] > cond_val
-			dir == "inc" ? @registers[reg] += val : @registers[reg] -= val
-			@max = [@max, @registers[reg]].max
+	def build_tree(node)
+		while node.children_cnt != 0
+			@pos += 2
+			node.children_cnt -= 1
+			child_node = Node.new(@data[@pos - 2], 
+					@data[@pos - 1])
+			node.children.push(child_node)
+			build_tree(child_node)
+		end
+		sum = 0
+		for i in 0...node.metadata_cnt
+			node.metadata.push(@data[@pos])
+			@pos += 1
 		end
 	end
 
-	def set_reg(reg)
-		if @registers[reg].nil?
-			@registers[reg] = 0
+	def start_count
+		@root.metadata.each do |item|
+			if item <= @root.children.length
+				@sum += find_sum(@root.children[item-1])
+			end
+		end
+	end
+
+	def find_sum(node)
+		if node.children.length == 0
+			return node.metadata.reduce(&:+)
+		else
+			sum = 0
+			node.metadata.each do |ind|
+				if ind <= node.children.length
+					sum += find_sum(node.children[ind - 1])
+				end
+			end
+			return sum
 		end
 	end
 
 	def output
-		puts "#{@max}"
+		 puts "#{@sum}"
 	end
 end
 
