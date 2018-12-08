@@ -40,7 +40,6 @@ class Part2
 			node.children.push(child_node)
 			build_tree(child_node)
 		end
-		sum = 0
 		node.metadata_cnt.times do
 			node.metadata.push(@data[@pos])
 			@pos += 1
