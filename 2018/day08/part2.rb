@@ -3,11 +3,11 @@
 # advent of code 2018, day 8, part 2
 
 class Node
-	attr_accessor :children_cnt, :metadata_cnt, :value,
+	attr_accessor :children_to_process, :metadata_cnt, :value,
 		:children, :metadata
 
 	def initialize(children, metadata)
-		@children_cnt = children
+		@children_to_process = children
 		@metadata_cnt = metadata
 		@children = []
 		@metadata = []
@@ -17,8 +17,8 @@ end
 class Part2
 	def initialize(file_name)
 		@data = []
-		@sum = 0
 		@pos = 2
+		@sum = 0
 		processFile(file_name)
 		@root = Node.new(@data[0], @data[1])
 		build_tree(@root)
@@ -32,9 +32,9 @@ class Part2
 	end
 
 	def build_tree(node)
-		while node.children_cnt != 0
+		while node.children_to_process != 0
 			@pos += 2
-			node.children_cnt -= 1
+			node.children_to_process -= 1
 			child_node = Node.new(@data[@pos - 2], 
 					@data[@pos - 1])
 			node.children.push(child_node)
@@ -47,6 +47,7 @@ class Part2
 	end
 
 	def find_root_sum
+		found = {}
 		@root.metadata.each do |child|
 			if child <= @root.children.length
 				@sum += find_node_sum(@root.children[child - 1])
