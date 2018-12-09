@@ -39,14 +39,13 @@ class Part1
 	end
 
 	def initalize_list
-		@curr_marble = 2
+		@curr_marble = 1
 
-		end_node = Node.new(1, nil, nil)
-		start_node = Node.new(0, end_node, end_node)
-		@list = List.new(start_node, end_node)
-		end_node.next_node = start_node
-		end_node.prev_node = start_node
-		@list.size = 2
+		start_node = Node.new(0, nil, nil)
+		start_node.next_node = start_node
+		start_node.prev_node = start_node
+		@list = List.new(start_node, start_node)
+		@list.size = 1
 	end
 
 	def playGame
