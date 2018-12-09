@@ -16,12 +16,12 @@ class Part1
 		@data = []
 		@sum = 0
 		@pos = 2
-		processFile(file_name)
+		process_file(file_name)
 		build_tree(Node.new(@data[0], @data[1]))
 		output
 	end
 
-	def processFile(file_name)
+	def process_file(file_name)
 		@data = File.open(file_name, "r").
 				readlines[0].split(" ").map(&:to_i)
 	end

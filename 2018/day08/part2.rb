@@ -19,14 +19,14 @@ class Part2
 		@data = []
 		@pos = 2
 		@sum = 0
-		processFile(file_name)
+		process_file(file_name)
 		@root = Node.new(@data[0], @data[1])
 		build_tree(@root)
 		find_root_sum
 		output
 	end
 
-	def processFile(file_name)
+	def process_file(file_name)
 		@data = File.open(file_name, "r").
 				readlines[0].split(" ").map(&:to_i)
 	end
