@@ -52,12 +52,13 @@ class Part2
 	def playGame
 		while @curr_marble < (@total_marbles * 100)
 			if @curr_marble % 23 == 0
-				@scores[@curr_player] += @curr_marble
 				7.times do
 					@list.curr_node = @list.curr_node.prev_node
 				end
 
-				@scores[@curr_player] += @list.curr_node.value
+				@scores[@curr_player] += @curr_marble +
+							@list.curr_node.value
+
 				save = @list.curr_node.next_node			
 				@list.curr_node.prev_node.next_node = @list.curr_node.next_node
 				@list.curr_node.next_node.prev_node = @list.curr_node.prev_node
