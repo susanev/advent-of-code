@@ -1,5 +1,5 @@
 # susan evans
-# last edited 12/08/2018
+# last edited 12/09/2018
 # advent of code 2018, day 9, part 2
 
 class List

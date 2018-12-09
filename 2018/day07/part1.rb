@@ -1,5 +1,5 @@
 # susan evans
-# last edited 12/06/2018
+# last edited 12/07/2018
 # advent of code 2018, day 7, part 1
 
 require 'set'

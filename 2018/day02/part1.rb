@@ -1,3 +1,7 @@
+# susan evans
+# last edited 12/02/2018
+# advent of code 2018, day 2, part 1
+
 class Part1
 	def initialize(file_name)
 		@two = 0

@@ -1,35 +1,23 @@
 # susan evans
-# last edited 12/14/2017
-# advent of code 2017, day 15, part 1
+# last edited 12/15/2018
+# advent of code 2018, day 15, part 1
 
 class Part1
 	def initialize(file_name)
-		@A = 16807
-		@B = 48271
-		@mod = 2147483647
-		@currA = 679
-		@currB = 771
-		@total = 0
-		40000000.times do
-			count
-		end			
+		processFile(file_name)
 		output
 	end
 
-	def count
-		@currA = (@currA * @A) % @mod
-		@currB = (@currB * @B) % @mod
-		binA = @currA.to_s(2)
-		binB = @currB.to_s(2)
+	def processFile(file_name)
+		File.open(file_name, "r") do |f|
+			f.each_line do |line|
 
-		if binA[binA.length - 16...binA.length] ==
-				binB[binB.length - 16...binB.length]
-			@total += 1
+			end
 		end
 	end
 
 	def output
-		puts "#{@total}"
+		puts "#{}"
 	end
 end
 

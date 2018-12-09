@@ -1,3 +1,7 @@
+# susan evans
+# last edited 12/05/2018
+# advent of code 2018, day 5, part 2
+
 class Part2
 	def initialize(file_name)
 		@data = []

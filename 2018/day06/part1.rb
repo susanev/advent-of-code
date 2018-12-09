@@ -1,5 +1,5 @@
 # susan evans
-# last edited 12/05/2018
+# last edited 12/06/2018
 # advent of code 2018, day 6, part 1
 
 class Part1

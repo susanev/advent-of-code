@@ -1,11 +1,62 @@
 # susan evans
-# last edited 12/06/2018
+# last edited 12/07/2018
 # advent of code 2018, day 7, part 2
 
 require 'set'
 
+class Worker
+	attr_accessor :work_to_do, :work_to_trash,
+				:work_to_add
+	def initialize
+		@work_to_do = 0
+		@work_to_trash = nil
+		@work_to_add = []
+	end
+end
+
+class Workers(amt)
+	attr_accessor :time_worked, :time_to_work,
+			:workers
+	def initalize
+		@workers = Array.new(amt, Worker.new)
+		@time_worked = 0
+		@time_to_work = 0
+	end
+
+	def work
+		@workers.each do |worker|
+			if worker.work_to_do == 0 && !@done.empty?
+				@done.sort!
+				worker.work_to_do = (@done[0].to_s.ord - 64) + 60
+				worker.work_to_trash = @done[0]
+				worker.work_to_add = find_keys_to_delete(@done[0])
+				@done.delete_at(0)
+			end
+			if worker.work_to_do > 0
+				worker.work_to_do -= 1
+			end
+		end
+
+		@workers.each do |worker|
+			if worker.work_to_do == 0
+				@final_order.push(worker.work_to_trash)
+				worker.work_to_trash = nil
+				worker.work_to_add.each do |key|
+					@instr.delete(key)
+					if !@dont_add.include?(key)
+						@done.push(key)
+					end
+					@dont_add.push(key)
+				end
+			end
+		end
+	end
+end
+
+
 class Part2
 	def initialize(file_name)
+		@workers = Workers.new(5)
 		@total_sec = 0
 		@pos = [].to_set
 		@instr = {}
@@ -43,37 +94,8 @@ class Part2
 	end
 
 	def process
-		workers = [0, 0, 0, 0, 0]
-		worker_hold = [nil, nil, nil, nil, nil]
-		worker_keys = [[], [], [], [], []]
-		while !@done.empty? || workers.reduce(&:+) > 0
-			@total_sec += 1
-			for i in 0...workers.length
-				if workers[i] == 0 && !@done.empty?
-					@done.sort!
-					workers[i] = (@done[0].to_s.ord - 64) + 60
-					worker_hold[i] = @done[0]
-					worker_keys[i] = find_keys_to_delete(@done[0])
-					@done.delete_at(0)
-				end
-				if workers[i] > 0
-					workers[i] -= 1
-				end
-			end
-
-			for i in 0...workers.length
-				if workers[i] == 0
-					@final_order.push(worker_hold[i])
-					worker_hold[i] = nil
-					worker_keys[i].each do |key|
-						@instr.delete(key)
-						if !@dont_add.include?(key)
-							@done.push(key)
-						end
-						@dont_add.push(key)
-					end
-				end
-			end
+		while !@done.empty? || @workers.time_to_work > 0
+			@worker.time_worked += 1
 		end
 	end
 

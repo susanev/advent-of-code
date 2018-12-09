@@ -1,6 +1,6 @@
 # susan evans
-# last edited 12/03/2018
-# advent of code 2018, day 5, part 1
+# last edited 12/04/2018
+# advent of code 2018, day 4, part 1
 
 #require 'time'
 
