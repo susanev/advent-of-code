@@ -31,10 +31,8 @@ class Part1
 	end
 
 	def processFile(file_name)
-		nums = File.open(file_name, "r").
+		@players, @total_marbles = File.open(file_name, "r").
 				readlines[0].scan(/\d+/).map(&:to_i)
-		@players = nums[0]
-		@total_marbles = nums[1]
 		@scores = Array.new(@players, 0)
 	end
 
