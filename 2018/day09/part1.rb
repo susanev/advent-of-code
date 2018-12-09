@@ -70,7 +70,7 @@ class Part1
 			end
 
 			@curr_marble += 1
-			@curr_player= (@curr_player+ 1) % @players
+			@curr_player= (@curr_player + 1) % @players
 		end
 	end
 
