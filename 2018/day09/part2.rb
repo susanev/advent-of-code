@@ -33,6 +33,7 @@ class Part2
 	def processFile(file_name)
 		@players, @total_marbles = File.open(file_name, "r").
 				readlines[0].scan(/\d+/).map(&:to_i)
+		@total_marbles *= 100
 		@scores = Array.new(@players, 0)
 	end
 
