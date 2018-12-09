@@ -45,7 +45,6 @@ class Part2
 		start_node.next_node = start_node
 		start_node.prev_node = start_node
 		@list = List.new(start_node, start_node)
-		@list.size = 1
 	end
 
 	def playGame
@@ -61,7 +60,6 @@ class Part2
 				@list.curr_node.prev_node.next_node = @list.curr_node.next_node
 				@list.curr_node.next_node.prev_node = @list.curr_node.prev_node
 				@list.curr_node = save
-				@list.size -= 1
 			else
 				@list.curr_node = @list.curr_node.next_node
 				new_node = Node.new(@curr_marble, @list.curr_node.next_node,
@@ -69,7 +67,6 @@ class Part2
 				@list.curr_node.next_node = new_node
 				@list.curr_node = new_node
 				new_node.next_node.prev_node = new_node
-				@list.size += 1
 			end
 
 			@curr_marble += 1
