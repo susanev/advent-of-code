@@ -53,23 +53,30 @@ class Part1
 
 				@scores[@curr_player] += @curr_marble +
 							@list.curr_node.value
-
-				save = @list.curr_node.next_node			
-				@list.curr_node.prev_node.next_node = @list.curr_node.next_node
-				@list.curr_node.next_node.prev_node = @list.curr_node.prev_node
-				@list.curr_node = save
+				removeNode
 			else
 				@list.curr_node = @list.curr_node.next_node
-				new_node = Node.new(@curr_marble, @list.curr_node.next_node,
-						@list.curr_node)
-				@list.curr_node.next_node = new_node
-				@list.curr_node = new_node
-				new_node.next_node.prev_node = new_node
+				addNode
 			end
 
 			@curr_marble += 1
 			@curr_player= (@curr_player + 1) % @players
 		end
+	end
+
+	def removeNode
+		save = @list.curr_node.next_node			
+		@list.curr_node.prev_node.next_node = @list.curr_node.next_node
+		@list.curr_node.next_node.prev_node = @list.curr_node.prev_node
+		@list.curr_node = save
+	end
+
+	def addNode
+		new_node = Node.new(@curr_marble, @list.curr_node.next_node,
+				@list.curr_node)
+		@list.curr_node.next_node = new_node
+		@list.curr_node = new_node
+		new_node.next_node.prev_node = new_node
 	end
 
 	def output
