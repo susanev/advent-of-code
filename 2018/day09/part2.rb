@@ -3,7 +3,7 @@
 # advent of code 2018, day 9, part 2
 
 class List
-	attr_accessor :start_node, :curr_node, :size
+	attr_accessor :start_node, :curr_node
 
 	def initialize(start_node, curr_node)
 		@start_node = start_node
