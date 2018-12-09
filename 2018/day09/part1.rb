@@ -1,67 +1,84 @@
 # susan evans
-# last edited 12/08/2017
-# advent of code 2017, day 9, part 1
+# last edited 12/08/2018
+# advent of code 2018, day 9, part 2
+
+class List
+	attr_accessor :start_node, :curr_node, :size
+
+	def initialize(start_node, curr_node)
+		@start_node = start_node
+		@curr_node = curr_node
+	end
+end
+
+class Node
+	attr_accessor :value, :next_node, :prev_node
+
+	def initialize(value, next_node, prev_node)
+		@value = value
+		@next_node = next_node
+		@prev_node = prev_node
+	end
+end
 
 class Part1
 	def initialize(file_name)
-		@lines = []
-		@sum = 0
-		@garbage = 0
-		@junk = ">!,<"
+		@curr_player = 2
 		processFile(file_name)
-		count
+		initalize_list
+		playGame
 		output
 	end
 
 	def processFile(file_name)
-		File.open(file_name, "r") do |f|
-			f.each_line do |line|
-				@lines.push(remove_junk(line.chomp.split("")))
-			end
-		end
+		nums = File.open(file_name, "r").
+				readlines[0].scan(/\d+/).map(&:to_i)
+		@players = nums[0]
+		@total_marbles = nums[1]
+		@scores = Array.new(@players, 0)
 	end
 
-	def remove_junk(line)
-		pos = 0
-		garbage = false
-		while pos < line.length
-			c = line[pos]
-			if @junk.include?(c) || garbage
-				line.delete_at(pos)
-				if c == ">"
-					garbage = false
-				elsif c == "!"
-					line.delete_at(pos)
-				elsif c == "<"
-					garbage = true
+	def initalize_list
+		@curr_marble = 2
+
+		end_node = Node.new(1, nil, nil)
+		start_node = Node.new(0, end_node, end_node)
+		@list = List.new(start_node, end_node)
+		end_node.next_node = start_node
+		end_node.prev_node = start_node
+		@list.size = 2
+	end
+
+	def playGame
+		while @curr_marble < @total_marbles
+			if @curr_marble % 23 == 0
+				@scores[@curr_player] += @curr_marble
+				7.times do
+					@list.curr_node = @list.curr_node.prev_node
 				end
+
+				@scores[@curr_player] += @list.curr_node.value
+				save = @list.curr_node.next_node			
+				@list.curr_node.prev_node.next_node = @list.curr_node.next_node
+				@list.curr_node.next_node.prev_node = @list.curr_node.prev_node
+				@list.curr_node = save
+				@list.size -= 1
 			else
-				pos += 1
+				@list.curr_node = @list.curr_node.next_node
+				new_node = Node.new(@curr_marble, @list.curr_node.next_node, @list.curr_node)
+				@list.curr_node.next_node = new_node
+				@list.curr_node = new_node
+				new_node.next_node.prev_node = new_node
+				@list.size += 1
 			end
-		end
-		return line
-	end
 
-	def count
-		@lines.each do |line|
-			open_brackets = 0
-			inc = 1
-			sum = 0
-			line.each do |c|
-				if c == "{"
-					open_brackets += 1
-					sum += inc
-					inc += 1
-				elsif c == "}"
-					inc -= 1
-				end
-			end
-			@sum += sum
+			@curr_marble += 1
+			@curr_player= (@curr_player+ 1) % @players
 		end
 	end
 
 	def output
-		puts "#{@sum}"
+		puts "#{@scores.max}"
 	end
 end
 
