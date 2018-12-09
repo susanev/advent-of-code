@@ -34,7 +34,7 @@ class Part2
 		nums = File.open(file_name, "r").
 				readlines[0].scan(/\d+/).map(&:to_i)
 		@players = nums[0]
-		@total_marbles = nums[1]
+		@total_marbles = nums[1] * 100
 		@scores = Array.new(@players, 0)
 	end
 
@@ -50,7 +50,7 @@ class Part2
 	end
 
 	def playGame
-		while @curr_marble < (@total_marbles * 100)
+		while @curr_marble < @total_marbles
 			if @curr_marble % 23 == 0
 				@list.curr_node = @list.curr_node.prev_node.prev_node.prev_node.
 						prev_node.prev_node.prev_node.prev_node
@@ -65,7 +65,8 @@ class Part2
 				@list.size -= 1
 			else
 				@list.curr_node = @list.curr_node.next_node
-				new_node = Node.new(@curr_marble, @list.curr_node.next_node, @list.curr_node)
+				new_node = Node.new(@curr_marble, @list.curr_node.next_node,
+						@list.curr_node)
 				@list.curr_node.next_node = new_node
 				@list.curr_node = new_node
 				new_node.next_node.prev_node = new_node

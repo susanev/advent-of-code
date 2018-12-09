@@ -52,9 +52,8 @@ class Part1
 	def playGame
 		while @curr_marble < @total_marbles
 			if @curr_marble % 23 == 0
-				7.times do
-					@list.curr_node = @list.curr_node.prev_node
-				end
+				@list.curr_node = @list.curr_node.prev_node.prev_node.prev_node.
+						prev_node.prev_node.prev_node.prev_node
 
 				@scores[@curr_player] += @curr_marble +
 							@list.curr_node.value
@@ -66,7 +65,8 @@ class Part1
 				@list.size -= 1
 			else
 				@list.curr_node = @list.curr_node.next_node
-				new_node = Node.new(@curr_marble, @list.curr_node.next_node, @list.curr_node)
+				new_node = Node.new(@curr_marble, @list.curr_node.next_node,
+						@list.curr_node)
 				@list.curr_node.next_node = new_node
 				@list.curr_node = new_node
 				new_node.next_node.prev_node = new_node
