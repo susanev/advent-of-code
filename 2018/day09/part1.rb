@@ -65,10 +65,9 @@ class Part1
 	end
 
 	def remove_node
-		save = @list.curr_node.next_node			
 		@list.curr_node.prev_node.next_node = @list.curr_node.next_node
 		@list.curr_node.next_node.prev_node = @list.curr_node.prev_node
-		@list.curr_node = save
+		@list.curr_node = @list.curr_node.prev_node.next_node
 	end
 
 	def add_node

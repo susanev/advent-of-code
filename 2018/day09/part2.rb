@@ -24,13 +24,13 @@ end
 class Part2
 	def initialize(file_name)
 		@curr_player = 2
-		processFile(file_name)
+		process_file(file_name)
 		initalize_list
-		playGame
+		play_game
 		output
 	end
 
-	def processFile(file_name)
+	def process_file(file_name)
 		@players, @total_marbles = File.open(file_name, "r").
 				readlines[0].scan(/\d+/).map(&:to_i)
 		@total_marbles *= 100
@@ -46,7 +46,7 @@ class Part2
 		@list = List.new(start_node, start_node)
 	end
 
-	def playGame
+	def play_game
 		while @curr_marble < @total_marbles
 			if @curr_marble % 23 == 0
 				@list.curr_node = @list.curr_node.prev_node.prev_node.prev_node.
@@ -54,10 +54,10 @@ class Part2
 
 				@scores[@curr_player] += @curr_marble +
 							@list.curr_node.value
-				removeNode
+				remove_node
 			else
 				@list.curr_node = @list.curr_node.next_node
-				addNode
+				add_node
 			end
 
 			@curr_marble += 1
@@ -65,14 +65,13 @@ class Part2
 		end
 	end
 
-	def removeNode
-		save = @list.curr_node.next_node			
+	def remove_node		
 		@list.curr_node.prev_node.next_node = @list.curr_node.next_node
 		@list.curr_node.next_node.prev_node = @list.curr_node.prev_node
-		@list.curr_node = save
+		@list.curr_node = @list.curr_node.prev_node.next_node
 	end
 
-	def addNode
+	def add_node
 		new_node = Node.new(@curr_marble, @list.curr_node.next_node,
 				@list.curr_node)
 		@list.curr_node.next_node = new_node
