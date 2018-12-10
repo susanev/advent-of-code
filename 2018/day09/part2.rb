@@ -32,7 +32,6 @@ class Part2
 	def process_file(file_name)
 		@players, @total_marbles = File.open(file_name, "r").
 				readlines[0].scan(/\d+/).map(&:to_i)
-		@total_marbles *= 100
 		@scores = Array.new(@players, 0)
 		@curr_player = 2
 	end
@@ -45,7 +44,7 @@ class Part2
 	end
 
 	def play_game
-		@total_marbles.times do |curr_marble|
+		(@total_marbles * 100).times do |curr_marble|
 			if curr_marble % 23 == 0
 				@list.curr_node = @list.curr_node.prev_node.prev_node.prev_node.
 						prev_node.prev_node.prev_node.prev_node
@@ -58,7 +57,7 @@ class Part2
 				add_node(curr_marble)
 			end
 
-			@curr_player= (@curr_player + 1) % @players
+			@curr_player = (@curr_player + 1) % @players
 		end
 	end
 

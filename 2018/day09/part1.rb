@@ -57,7 +57,7 @@ class Part1
 				add_node(curr_marble)
 			end
 
-			@curr_player= (@curr_player + 1) % @players
+			@curr_player = (@curr_player + 1) % @players
 		end
 	end
 
