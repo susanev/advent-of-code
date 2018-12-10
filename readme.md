@@ -9,7 +9,7 @@ _This repository holds my Ruby solutions for [Advent of Code](http://adventofcod
 | [Day 2](2018/day02) | [Day 7](2018/day07) | | | |
 | [Day 3](2018/day03) | [Day 8](2018/day08) | | | |
 | [Day 4](2018/day04) | [Day 9](2018/day09) | | | |
-| [Day 5](2018/day05) | | | | |
+| [Day 5](2018/day05) | [Day 10](2018/day10) | | | |
 
 ## 2017
 
