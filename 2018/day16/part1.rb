@@ -1,64 +1,121 @@
 # susan evans
-# last edited 12/16/2017
-# advent of code 2017, day 16, part 1
+# last edited 12/16/2018
+# advent of code 2018, day 16, part 1
 
 class Part1
 	def initialize(file_name)
-		@dance = nil
-		@programs = "abcdefghijklmnop".split("")
-		processFile(file_name)
-		dance
+		@methods = [:addr, :addi, :mulr, :muli,
+					:banr, :bani, :borr, :bori,
+					:setr, :seti, :gtir, :gtri,
+					:gtrr, :eqir, :eqri, :eqrr]
+		@total_count = 0
+
+		process_file(file_name)
 		output
 	end
 
-	def processFile(file_name)
-		line_index = 0
-		File.open(file_name, "r") do |f|
-			f.each_line do |line|
-				@dance = line.split(",")
+	def process_file(file_name)
+		input = File.open(file_name, "r").readlines
+		pos = 0
+		while !input[pos].nil?
+			before = input[pos].scan(/\d+/).map(&:to_i)
+			inst, a, b, c = input[pos + 1].scan(/\d+/).map(&:to_i)
+			after = input[pos + 2].scan(/\d+/).map(&:to_i)
+
+			count = 0
+			@methods.each do |meth|
+				count += send(meth, a, b, c, before.clone, after)
 			end
-		end
-	end
 
-	def dance
-		@dance.each do |move|
-			if move[0] == "x"
-				slash = move.index("/")
-				exchange(move[1...slash].to_i, move[slash + 1...move.length].to_i)
-			elsif move[0] == "p"
-				slash = move.index("/")
-				partner(move[1...slash], move[slash + 1...move.length])
-			elsif move[0] == "s"
-				amt = move[/\d+/].to_i
-				if amt < @programs.length
-					spin(amt)
-				end
+			if count >= 3
+				@total_count += 1
 			end
+			pos += 4
 		end
 	end
 
-	def spin(amt)
-		sub_programs = @programs.drop(@programs.length - amt)
-		amt.times do
-			@programs.delete_at(@programs.length - 1)
-		end
-		@programs = sub_programs.push(*@programs)
+	def addr(a, b, c, regs, after)
+		regs[c] = regs[a] + regs[b]
+		return regs == after ? 1 : 0
 	end
 
-	def exchange(pos1, pos2)
-		temp = @programs[pos1]
-		@programs[pos1] = @programs[pos2]
-		@programs[pos2] = temp
+	def addi(a, b, c, regs, after)
+		regs[c] = regs[a] + b
+		return regs == after ? 1 : 0
 	end
 
-	def partner(prog1, prog2)
-		temp = @programs.find_index(prog1)
-		@programs[@programs.find_index(prog2)] = prog1
-		@programs[temp] = prog2
+	def mulr(a, b, c, regs, after)
+		regs[c] = regs[a] * regs[b]
+		return regs == after ? 1 : 0
+	end
+
+	def muli(a, b, c, regs, after)
+		regs[c] = regs[a] * b
+		return regs == after ? 1 : 0
+	end
+
+	def banr(a, b, c, regs, after)
+		regs[c] = regs[a] & regs[b]
+		return regs == after ? 1 : 0
+	end
+
+	def bani(a, b, c, regs, after)
+		regs[c] = regs[a] & b
+		return regs == after ? 1 : 0
+	end
+
+	def borr(a, b, c, regs, after)
+		regs[c] = regs[a] | regs[b]
+		return regs == after ? 1 : 0
+	end
+
+	def bori(a, b, c, regs, after)
+		regs[c] = regs[a] | b
+		return regs == after ? 1 : 0
+	end
+
+	def setr(a, b, c, regs, after)
+		regs[c] = regs[a]
+		return regs == after ? 1 : 0
+	end
+
+	def seti(a, b, c, regs, after)
+		regs[c] = a
+		return regs == after ? 1 : 0
+	end
+
+	def gtir(a, b, c, regs, after)
+		regs[c] = a > regs[b] ? 1 : 0
+		return regs == after ? 1 : 0
+	end
+
+	def gtri(a, b, c, regs, after)
+		regs[c] = regs[a] > b ? 1 : 0
+		return regs == after ? 1 : 0
+	end
+
+	def gtrr(a, b, c, regs, after)
+		regs[c] = (regs[a] > regs[b] ? 1 : 0)
+		return regs == after ? 1 : 0
+	end
+
+	def eqir(a, b, c, regs, after)
+		regs[c] = (a == regs[b]) ? 1 : 0
+		return regs == after ? 1 : 0
+	end
+
+	def eqri(a, b, c, regs, after)
+		regs[c] = (regs[a] == b) ? 1 : 0
+		return regs == after ? 1 : 0
+	end
+
+	def eqrr(a, b, c, regs, after)
+		regs[c] = (regs[a] == regs[b]) ? 1 : 0
+		return regs == after ? 1 : 0
 	end
 
 	def output
-		puts "#{@programs.join}"
+		puts "#{@total_count}"
 	end
 end
 
