@@ -5,11 +5,11 @@ _This repository holds my Ruby solutions for [Advent of Code](http://adventofcod
 
 | [2018](2018) | | | | |
 | :--- | :--- | :--- | :--- | :--- |
-| [Day 1](2018/day01) | [Day 6](2018/day06) | [Day 11](2018/day11) | | |
-| [Day 2](2018/day02) | [Day 7](2018/day07) | [Day 12](2018/day12) | | |
-| [Day 3](2018/day03) | [Day 8](2018/day08) | [Day 13](2018/day13) | | |
+| [Day 1](2018/day01) | [Day 6](2018/day06) | [Day 11](2018/day11) | [Day 16](2018/day16) | |
+| [Day 2](2018/day02) | [Day 7](2018/day07) | [Day 12](2018/day12) | [Day 17](2018/day17) | |
+| [Day 3](2018/day03) | [Day 8](2018/day08) | [Day 13](2018/day13) | [Day 18](2018/day18) | |
 | [Day 4](2018/day04) | [Day 9](2018/day09) | [Day 14](2018/day14) | | |
-| [Day 5](2018/day05) | [Day 10](2018/day10) | | | |
+| [Day 5](2018/day05) | [Day 10](2018/day10) | [Day 15](2018/day15)| | |
 
 ## 2017
 
