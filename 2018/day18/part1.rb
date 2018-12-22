@@ -1,107 +1,105 @@
 # susan evans
-# last edited 12/17/2017
-# advent of code 2017, day 18, part 1
+# last edited 12/17/2018
+# advent of code 2018, day 18, part 1
 
 class Part1
 	def initialize(file_name)
-		@last_sound = nil
-		@registers = {}
-		@instructions = []
-		@pos = 0
-		@rcv_found = false
-		processFile(file_name)
+		@dirs = [[-1, -1], [0, -1], [1, -1],
+		 		 [-1, 0],			[1, 0],
+		 		 [-1, 1],  [0, 1],  [1, 1]]
+		@width = nil
+		@height = nil
+		@forest = {}
+		process_file(file_name)
 		process
 		output
 	end
 
-	def processFile(file_name)
-		line_index = 0
-		File.open(file_name, "r") do |f|
-			f.each_line do |line|
-				@instructions.push(line)
+	def print_forest
+		for y in 0...@height
+			for x in 0...@width
+				print @forest[[x,y]]
+			end
+			print "\n"
+		end
+		print "\n"
+	end
+
+	def process_file(file_name)
+		input = File.open(file_name, "r").readlines.map{|str| str.chomp.split("")}
+		@width = input[0].length
+		@height = input.length
+		for y in 0...@height
+			for x in 0...@width
+				@forest[[x,y]] = input[y][x]
 			end
 		end
 	end
 
 	def process
-		while !@rcv_found
-			line = @instructions[@pos]
-			numbers = line[4...line.length].split(" ")
-			first = numbers[0]
-			if numbers.length > 1
-				second = numbers[1]
-				if second.to_i.to_s == second
-					second = second.to_i
+		10.times do
+			second
+		end
+	end
+
+	def second
+		new_forest = {}
+		for y in 0...@height
+			for x in 0...@width
+				# puts three_or_more?(x, y, "|")
+				if @forest[[x,y]] == "." && three_or_more?(x, y, "|")
+					new_forest[[x,y]] = "|"
+				elsif @forest[[x,y]] == "."
+					new_forest[[x,y]] = "."
+				elsif @forest[[x,y]] == "|" && three_or_more?(x, y, "#")
+					new_forest[[x,y]] = "#"
+				elsif @forest[[x,y]] == "|"
+					new_forest[[x,y]] = "|"
+				elsif @forest[[x,y]] == "#" && remain_lumberyard?(x, y)
+					new_forest[[x,y]] = "#"
 				else
-					second = @registers[second]
+					new_forest[[x,y]] = "."
 				end
 			end
-			if line.include?("snd")
-				snd(first)
-			elsif line.include?("set")
-				set(first, second)
-			elsif line.include?("add")
-				add(first, second)
-			elsif line.include?("mul")
-				mul(first, second)
-			elsif line.include?("mod")
-				mod(first, second)
-			elsif line.include?("rcv")
-				rcv(first)
-			elsif line.include?("jgz")
-				jgz(first, second)
+		end
+		@forest = new_forest
+	end
+
+	def remain_lumberyard?(x, y)
+		lumberyards = 0
+		trees = 0
+		@dirs.each do |dir|
+			if valid_move(x + dir[0], y + dir[1])
+				if @forest[[x + dir[0],y + dir[1]]] == "|"
+					trees += 1
+				elsif @forest[[x + dir[0],y + dir[1]]] == "#"
+					lumberyards += 1
+				end
 			end
-			@pos += 1
 		end
+		return lumberyards > 0 && trees > 0
 	end
 
-	def snd(x)
-		@last_sound = @registers[x]
-	end
-
-	def set(x, y)
-		@registers[x] = y
-	end
-
-	def add(x, y)
-		if @registers[x].nil?
-			@registers[x] = y
-		else
-			@registers[x] += y
+	def three_or_more?(x, y, thing)
+		count = 0
+		@dirs.each do |dir|
+			if valid_move(x + dir[0], y + dir[1]) &&
+					@forest[[(x + dir[0]), (y + dir[1])]] == thing
+				count += 1
+			end
 		end
+		return count >= 3
 	end
 
-	def mul(x, y)
-		if @registers[x].nil?
-			@registers[x] = 0
-		else
-			@registers[x] *= y
-		end
-	end
-
-	def mod(x, y)
-		if @registers[x].nil?
-			@registers[x] = 0
-		else
-			@registers[x] %= y
-		end
-	end
-
-	def rcv(x)
-		if @registers[x] != 0
-			@rcv_found = true
-		end
-	end
-
-	def jgz(x, y)
-		if @registers[x] > 0
-			@pos += y
-			@pos -= 1
-		end
+	def valid_move(x, y)
+		return x < @width &&
+				y < @height &&
+				x > -1 &&
+				y > -1
 	end
 
 	def output
-		puts "#{@last_sound}"
+		puts @forest.values.count("|") * @forest.values.count("#")
 	end
 end
 
