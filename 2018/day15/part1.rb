@@ -71,9 +71,9 @@ class Part1
 		@goblins = []
 		process_file(file_name)
 		# find_monsters
-		4.times do
-		turn
-	end
+		2.times do
+			turn
+		end
 		#game
 		print_map
 		#output
@@ -119,8 +119,9 @@ class Part1
 		find_monsters
 		@monsters = (@elves + @goblins).sort
 
-		@all_moves = []
+		#@all_moves = []
 		@monsters.each do |monster|
+			find_monsters
 			target = find_targets(monster)
 			if target != nil
 				target.hit -= monster.attack
@@ -129,26 +130,26 @@ class Part1
 					target.str = "."
 				end
 			elsif find_open_squares(monster).length > 0
-				@all_moves.push(move(monster))
+				move(monster)
 			end
 		end
 
-		@all_moves.each do |move|
-			prev_x = move[:monster].x
-			prev_y = move[:monster].y
-			new_x = move[:path].x
-			new_y = move[:path].y
-			type = move[:monster].type
-			str = move[:monster].str
-			attack = move[:monster].attack
-			hit = move[:monster].hit
-			@map[[prev_x, prev_y]].type = :open
-			@map[[prev_x, prev_y]].str = "."
-			@map[[new_x, new_y]].type = type
-			@map[[new_x, new_y]].str = str	
-			@map[[new_x, new_y]].hit = hit
-			@map[[new_x, new_y]].attack = attack		
-		end
+		# @all_moves.each do |move|
+		# 	prev_x = move[:monster].x
+		# 	prev_y = move[:monster].y
+		# 	new_x = move[:path].x
+		# 	new_y = move[:path].y
+		# 	type = move[:monster].type
+		# 	str = move[:monster].str
+		# 	attack = move[:monster].attack
+		# 	hit = move[:monster].hit
+		# 	@map[[prev_x, prev_y]].type = :open
+		# 	@map[[prev_x, prev_y]].str = "."
+		# 	@map[[new_x, new_y]].type = type
+		# 	@map[[new_x, new_y]].str = str	
+		# 	@map[[new_x, new_y]].hit = hit
+		# 	@map[[new_x, new_y]].attack = attack		
+		# end
 	end
 
 	def find_targets(monster)
@@ -210,7 +211,6 @@ class Part1
 			@elves.each do |elf|
 				open_squares = find_open_squares(elf)
 				distances = []
-
 				open_squares.each do |square|
 					distances.push(get_distance(monster, square))
 				end
@@ -218,16 +218,39 @@ class Part1
 				moves.push({monster: monster, path: shortest[0], cost: shortest[1]})
 			end
 		end
+		moves = moves.sort_by { |move| move[:path] }
 
 		chosen_path = moves.map{ |move| move[:cost] }.min
+
+		# moves.each do |move|
+		# 	if move[:cost] == chosen_path
+		# 		return move
+		# 	end
+		# end
 		moves.each do |move|
 			if move[:cost] == chosen_path
-				return move
+				prev_x = move[:monster].x
+				prev_y = move[:monster].y
+				new_x = move[:path].x
+				new_y = move[:path].y
+				type = move[:monster].type
+				str = move[:monster].str
+				attack = move[:monster].attack
+				hit = move[:monster].hit
+				@map[[prev_x, prev_y]].type = :open
+				@map[[prev_x, prev_y]].str = "."
+				@map[[new_x, new_y]].type = type
+				@map[[new_x, new_y]].str = str	
+				@map[[new_x, new_y]].hit = hit
+				@map[[new_x, new_y]].attack = attack	
+				return
 			end
 		end
+		find_monsters
 	end
 
 	def find_shortest_distance(distances)
+		distances.sort!
 		shortest = distances.map{ |distance| distance[1] }.min
 		distances.each do |distance|
 			if distance[1] == shortest
